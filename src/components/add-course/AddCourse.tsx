@@ -37,7 +37,6 @@ export const AddCourse: React.FC = () => {
         Want to add a course?
         <br/>
         <br/>
-            Course Name :
             <TextField 
                 name="courseName"
                 className={classes.textField}
@@ -47,6 +46,8 @@ export const AddCourse: React.FC = () => {
                 onChange={(event) => {
                     setCourseName(event.currentTarget.value)
                 }}/>
+
+                <br />
             
             <TextField 
                 name="CRNnumber"
@@ -58,9 +59,8 @@ export const AddCourse: React.FC = () => {
                     setCRNnumber(event.currentTarget.value)
                 }}/>
 
-
-
-        <Button>submit</Button>
+                <br/>
+        <Button className={classes.button}>submit</Button>
 
         {/* below, just testing if textfields are actually fetching the info*/}
             
@@ -68,7 +68,6 @@ export const AddCourse: React.FC = () => {
         <p>CRN: {CRNnumber}</p>
 
         </div>
-
     )
 }
 
