@@ -18,6 +18,7 @@ export const App: React.FC = () => {
             <NavBar />
             <h1>Passr</h1>
             <p>Congratulation, you have successfully started Passr.</p>
+
             <AddCourse />
         </div>
     )
