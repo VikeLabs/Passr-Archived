@@ -5,24 +5,25 @@ import TextField from '@material-ui/core/TextField'
 
 
 
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
+
+const useStyles = makeStyles((theme: Theme) => ({
+  
         container: {
             display: 'flex',
             flexWrap: 'wrap',
           },
 
         textField:{
-            marginLeft: theme.spacing(1),
-            marginRight: theme.spacing(1),
+            //marginLeft: theme.spacing(1),
+            //marginRight: theme.spacing(1),
             width: 200,
         },
 
         button: {
             display: 'grid',
         },
-    }),
-)
+    }))
+
 
 export const AddCourse: React.FC = () => {
     const classes = useStyles()
@@ -31,7 +32,7 @@ export const AddCourse: React.FC = () => {
     const [ CRNnumber, setCRNnumber ] = useState('')
     
     return (
-        <form className = {classes.container}>
+        
         <div>
         Want to add a course?
         <br/>
@@ -68,7 +69,6 @@ export const AddCourse: React.FC = () => {
 
         </div>
 
-        </form>
     )
 }
 
