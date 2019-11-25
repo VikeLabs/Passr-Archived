@@ -1,5 +1,6 @@
 import React from 'react'
 import NavBar from '../nav/nav'
+import Drawer from '../drawer-content/DrawerContent'
 import { makeStyles, Theme, createStyles, Grid } from '@material-ui/core'
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -15,6 +16,7 @@ export const App: React.FC = () => {
     return (
         <div id="app" className={classes.root}>
             <NavBar />
+            {/* <Drawer /> */}
             <h1>Passr</h1>
             <p>Congratulation, you have successfully started Passr.</p>
         </div>
