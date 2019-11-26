@@ -16,6 +16,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
 
     textField: {
+        margin : "normal",
         //marginLeft: theme.spacing(1),
         //marginRight: theme.spacing(1),
         width: 200,
@@ -31,14 +32,11 @@ const useStyles = makeStyles((theme: Theme) => ({
     }
 }))
 
-
 export const AddCourse: React.FC = () => {
     const classes = useStyles()
     const [courseName, setCourseName] = useState('')
     const [CRNnumber, setCRNnumber] = useState('')
     const [open, setOpen] = React.useState(false);
-    const [StartDate, setStartDate] = React.useState('');
-    const [EndDate, setEndDate] = React.useState('');
 
     const handleOpen = () => {
         setOpen(true);
@@ -48,25 +46,32 @@ export const AddCourse: React.FC = () => {
         setOpen(false);
     };
 
-    const [selectedDate, setSelectedDate] = React.useState<Date | null>(
-        new Date('2019-11-24'),
+    const [startDate, setStartDate] = React.useState<Date | null>(
+        new Date(),
     );
 
-    const handleDateChange = (date: Date | null) => {
-        setSelectedDate(date);
-    };
+    const [endDate, setEndDate] = React.useState<Date | null>(
+        new Date(),
+    );
 
     return (
 
         <div>
 
-            <button type="button" onClick={handleOpen}>
+            <Button
+                type="button"
+                onClick={handleOpen}
+                className={classes.button} 
+                variant='contained'
+                color='primary'
+                >
                 Add a course
-      </button>
+            </Button>
+
             <Modal
                 open={open}
                 onClose={handleClose}
-            >
+                >
                 <div className={classes.modal}>
                     <TextField
                         name="courseName"
@@ -101,8 +106,8 @@ export const AddCourse: React.FC = () => {
                                 margin="normal"
                                 id="startDate"
                                 label="start Date"
-                                value={selectedDate}
-                                onChange={handleDateChange}
+                                value={startDate}
+                                onChange={setStartDate}
                                 KeyboardButtonProps={{
                                     'aria-label': 'change date',
                                 }}
@@ -115,8 +120,8 @@ export const AddCourse: React.FC = () => {
                                 margin="normal"
                                 id="EndDate"
                                 label="End Date"
-                                value={selectedDate}
-                                onChange={handleDateChange}
+                                value={endDate}
+                                onChange={setEndDate}
                                 KeyboardButtonProps={{
                                     'aria-label': 'change date',
                                 }}
@@ -124,16 +129,34 @@ export const AddCourse: React.FC = () => {
                         </Grid>
                     </MuiPickersUtilsProvider>
 
-                    <Button className={classes.button}>submit</Button>
+                    <Button
+                        className={classes.button} 
+                        variant='contained'
+                        color='primary'
+                        >Submit</Button>
+
+                    <Button
+                        className={classes.button} 
+                        variant='outlined'
+                        color='secondary'
+                        onClick={handleClose}
+                        >Cancel</Button>
                 </div>
             </Modal>
 
             {/* below, just testing if textfields are actually fetching the info*/}
 
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
             <p>course name: {courseName}</p>
             <p>CRN: {CRNnumber}</p>
-            <p>Start date: {StartDate}</p>
-            <p>End Date: {EndDate}</p>
+
+            <p>Start date: {startDate ? startDate.toString() : ''}</p>
+            <p>End Date: {endDate ? endDate.toString() : ''}</p>
 
         </div>
     )
