@@ -28,7 +28,16 @@ import CSS from 'csstype';
 export const DrawerContent: React.FC = () => {
     let currentSemester = "Fall 2019";
     let courses = ["SENG 265","CSC 225","STAT 260","MATH 202"]
-    let previousSemesters = ["Fall 2018","Spring 2018"]
+    // let previousSemesters = ["Fall 2018","Spring 2018"]
+    const previousSemesters = [{
+        name: "Fall 2018",
+        courses: ["CSC 106","CSC 110","HINF 130","PSYC 100A","MATH 109"],
+    },
+    {
+        name: "Spring 2018",
+        courses: ["CSC 115","PSYC 100B","MATH 100","MATH 122"]
+    }]
+
     let previousCourses = [["CSC 106","CSC 110","HINF 130","PSYC 100A","MATH 109"],["CSC 115","PSYC 100B","MATH 100","MATH 122"]]
     let gpa = "3.2"
 
@@ -60,7 +69,9 @@ export const DrawerContent: React.FC = () => {
       }),
     );
     
+    
     function CurrentCourses() {
+        const classes1 = useStyles();
         const [selectedIndex, setSelectedIndex] = React.useState(10);
         const handleListItemClick = (
             event: React.MouseEvent<HTMLDivElement, MouseEvent>,
@@ -72,41 +83,25 @@ export const DrawerContent: React.FC = () => {
         return (
             <List 
             component="nav" 
-            className={classes.root} >
-            <ListItem 
-                button
-                selected={selectedIndex === 0}
-                onClick={event => handleListItemClick(event, 0)} >
-                <ListItemText primary={courses[0]} style={textStyles}/>
-            </ListItem>
-            <Divider/>
-            <ListItem 
-                button
-                selected={selectedIndex === 1}
-                onClick={event => handleListItemClick(event, 1)}>
-                <ListItemText primary={courses[1]} style={textStyles}/>
-            </ListItem>
-            <Divider/>
-            <ListItem 
-                button
-                selected={selectedIndex === 2}
-                onClick={event => handleListItemClick(event, 2)}>
-                <ListItemText primary={courses[2]} style={textStyles}/>
-            </ListItem>
-            <Divider/>
-            <ListItem 
-                button
-                selected={selectedIndex === 3}
-                onClick={event => handleListItemClick(event, 3)}>
-                <ListItemText primary={courses[3]} style={textStyles}/>
-            </ListItem>
-        </List>
+            className={classes1.root}>
+                {courses.map((course, index) => {
+                    return (<><ListItem
+                    button
+                    selected={selectedIndex === index}
+                    onClick={event => handleListItemClick(event, index)}>
+                        <ListItemText primary={course} style={textStyles}/>
+                    </ListItem>
+                    <Divider />
+                    </>
+                    )})}
+            </List>
         )
     }
 
     function PreviousCourses() {
+        const classes2 = useStyles();
         const [open, setOpen] = React.useState(false);
-        const [selectedIndex, setSelectedIndex] = React.useState(10);
+        const [selectedIndex, setSelectedIndex] = React.useState(-1);
         const handleNestedListItemClick = (
           event: React.MouseEvent<HTMLDivElement, MouseEvent>,
           index: number,
@@ -116,66 +111,33 @@ export const DrawerContent: React.FC = () => {
         };
 
         return(
-            <List
-            component="nav" 
-            className={classes.root}>
-            <ListItem 
-                button
-                selected={selectedIndex === 4}
-                onClick={event => handleNestedListItemClick(event, 4)} >
-                <ListItemText primary={previousSemesters[0]} style={textStyles}/>
-                {open ? <ExpandLess /> : <ExpandMore />}
-            </ListItem>
-            <Divider/>
-            <Collapse in={open} timeout="auto" unmountOnExit>
-                <List component="div" disablePadding>
-                    <ListItem button className={classes.nested}>
-                        <ListItemText style={textStyles} primary={previousCourses[0][0]} />
+            <List 
+                component="nav" 
+                className={classes2.root}>
+                {previousSemesters.map((previousSemester, index) => {
+                    return (<><ListItem
+                    button
+                    selected={selectedIndex === index}
+                    onClick={event => handleNestedListItemClick(event, index)}>
+                        <ListItemText primary={previousSemester.name} style={textStyles}/>
+                        {open ? <ExpandLess /> : <ExpandMore />}
                     </ListItem>
-                    <ListItem button className={classes.nested}>
-                        <ListItemText style={textStyles} primary={previousCourses[0][1]} />
-                    </ListItem>
-                    <ListItem button className={classes.nested}>
-                        <ListItemText style={textStyles} primary={previousCourses[0][2]} />
-                    </ListItem>
-                    <ListItem button className={classes.nested}>
-                        <ListItemText style={textStyles} primary={previousCourses[0][3]} />
-                    </ListItem>
-                    <ListItem button className={classes.nested}>
-                        <ListItemText style={textStyles} primary={previousCourses[0][4]} />
-                    </ListItem>
-                </List>
-            </Collapse>
-            <ListItem 
-                button
-                selected={selectedIndex === 5}
-                onClick={event => handleNestedListItemClick(event, 5)} >
-                <ListItemText primary={previousSemesters[1]} style={textStyles}/>
-                {open ? <ExpandLess /> : <ExpandMore />}
-            </ListItem>
-            <Divider/>
-            <Collapse in={open} timeout="auto" unmountOnExit>
-                <List component="div" disablePadding>
-                    <ListItem button className={classes.nested}>
-                        <ListItemText style={textStyles} primary={previousCourses[1][0]} />
-                    </ListItem>
-                    <ListItem button className={classes.nested}>
-                        <ListItemText style={textStyles} primary={previousCourses[1][1]} />
-                    </ListItem>
-                    <ListItem button className={classes.nested}>
-                        <ListItemText style={textStyles} primary={previousCourses[1][2]} />
-                    </ListItem>
-                    <ListItem button className={classes.nested}>
-                        <ListItemText style={textStyles} primary={previousCourses[1][3]} />
-                    </ListItem>
-                </List>
-            </Collapse>
-        </List>
-        )
-
-    }
+                    <Divider />
+                    <Collapse in={open} timeout="auto" unmountOnExit>
+                        <List component="div" disablePadding>
+                            {previousSemester.courses.map((course, index) => {
+                                return (<>
+                                    <ListItem button className={classes2.nested}>
+                                        <ListItemText style={textStyles} primary={course} />
+                                    </ListItem>
+                                    <Divider /> </>
+                                )})}
+                        </List>
+                    </Collapse></>
+                    )})}
+            </List>)
+    }    
     
-    const classes = useStyles();
     return <div id='drawer_content' style={drawer_content}>
         <Box style={textStyles}>
             <h1 style={{paddingBottom:'0px',lineHeight:'0px'}}>{currentSemester}</h1>
