@@ -26,7 +26,7 @@ const course1items: CourseItem[] = [
 
 export const course1: Course = {
     name: 'CSC 370',
-    destiredGrade: 0.8,
+    desiredGrade: 0.8,
     items: course1items,
     dateRange: {
         start: new Date(thisSemesterStart),
@@ -36,7 +36,7 @@ export const course1: Course = {
 
 const course2: Course = {
     name: 'ECE 355',
-    destiredGrade: 0.75,
+    desiredGrade: 0.75,
     items: [
         { name: 'Midterm1', weight: 0.2 },
         { name: 'Assignment 1', weight: 0.5 / 6 },
@@ -56,7 +56,7 @@ const course2: Course = {
 
 const course3: Course = {
     name: 'SENG 350',
-    destiredGrade: 0.8,
+    desiredGrade: 0.8,
     items: [
         { name: 'Quiz 1', weight: 0.02 },
         { name: 'Quiz 2', weight: 0.02 },
