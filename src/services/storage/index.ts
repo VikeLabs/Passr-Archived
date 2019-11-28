@@ -5,14 +5,14 @@ interface DateRange {
     end: Date
 }
 
-interface Fraction {
+export interface Fraction {
     numerator: number
     denominator: number
 }
 
 export interface Course {
     name: string
-    destiredGrade: number
+    desiredGrade: number
     items: CourseItem[]
     crn?: number
     dateRange?: DateRange
