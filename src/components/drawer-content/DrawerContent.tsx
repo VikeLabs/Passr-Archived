@@ -7,12 +7,7 @@ import ListItemText from '@material-ui/core/ListItemText'
 import Collapse from '@material-ui/core/Collapse'
 import ExpandLess from '@material-ui/icons/ExpandLess'
 import ExpandMore from '@material-ui/icons/ExpandMore'
-import {
-    makeStyles,
-    useTheme,
-    Theme,
-    createStyles,
-} from '@material-ui/core/styles'
+import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
 import CSS from 'csstype'
 import { user1 } from '../../services/storage/mock'
 
@@ -42,8 +37,8 @@ const textStyles: CSS.Properties = {
 }
 
 const CurrentCourses = (props: { courses: string[] }) => {
-    const classes1 = useStyles()
-    const [selectedIndex, setSelectedIndex] = React.useState(10)
+    const classes = useStyles()
+    const [selectedIndex, setSelectedIndex] = React.useState(-1)
     const handleListItemClick = (
         event: React.MouseEvent<HTMLDivElement, MouseEvent>,
         index: number,
@@ -52,7 +47,7 @@ const CurrentCourses = (props: { courses: string[] }) => {
     }
 
     return (
-        <List component="nav" className={classes1.root}>
+        <List component="nav" className={classes.root}>
             {props.courses.map((course, index) => {
                 return (
                     <>
@@ -72,7 +67,7 @@ const CurrentCourses = (props: { courses: string[] }) => {
 }
 
 function PreviousCourses(props: { previousSemesters: PreviousSemesters }) {
-    const classes2 = useStyles()
+    const classes = useStyles()
     const [open, setOpen] = React.useState(false)
     const [selectedIndex, setSelectedIndex] = React.useState(-1)
     const handleNestedListItemClick = (
@@ -84,7 +79,7 @@ function PreviousCourses(props: { previousSemesters: PreviousSemesters }) {
     }
 
     return (
-        <List component="nav" className={classes2.root}>
+        <List component="nav" className={classes.root}>
             {props.previousSemesters.map((previousSemester, index) => {
                 return (
                     <>
@@ -110,7 +105,7 @@ function PreviousCourses(props: { previousSemesters: PreviousSemesters }) {
                                             <>
                                                 <ListItem
                                                     button
-                                                    className={classes2.nested}
+                                                    className={classes.nested}
                                                 >
                                                     <ListItemText
                                                         style={textStyles}
