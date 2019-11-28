@@ -59,7 +59,7 @@ interface ApplicationBarProps{
   container?: Element;
 }
 
-export default function ApplicationBar(props: ApplicationBarProps) {
+export default function ApplicationBar() {
   const { container } = props;
   const classes = useStyles();
   const theme = useTheme();
