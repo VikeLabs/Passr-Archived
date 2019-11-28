@@ -51,13 +51,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-interface ApplicationBarProps{
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
-  container?: Element;
-}
+
 
 export default function ApplicationBar() {
   const classes = useStyles();
