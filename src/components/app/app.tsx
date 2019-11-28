@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import NavBar from '../nav/NavBar'
 import { makeStyles, Theme, createStyles } from '@material-ui/core'
+import { loadUser, User, Course } from '../../services/storage'
+import { CourseContent } from '../course-content/CourseContent'
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -12,11 +14,29 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const App: React.FC = () => {
     const classes = useStyles()
+    const [user, setUser] = useState<undefined | User>(undefined)
+    const updateCourse = (index: number, course: Course) => {
+        if (!user) {
+            return
+        }
+        const newUser = { ...user }
+        newUser.courses[index] = course
+        setUser(newUser)
+    }
+
+    useEffect(() => {
+        loadUser('1').then(res => setUser(res))
+    }, [])
+
     return (
         <div id="app" className={classes.root}>
             <NavBar />
-            <h1>Passr</h1>
-            <p>Congratulation, you have successfully started Passr.</p>
+            {user && user.courses.length > 0 && (
+                <CourseContent
+                    course={user.courses[0]}
+                    updateCourse={course => updateCourse(0, course)}
+                />
+            )}
         </div>
     )
 }
