@@ -3,10 +3,9 @@ import { Button } from '@material-ui/core'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField'
 import Modal from '@material-ui/core/Modal';
-import 'date-fns';
-import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 import Grid from '@material-ui/core/Grid';
+//import { Course } from '../../services/storage
 
 const useStyles = makeStyles((theme: Theme) => ({
 
@@ -17,8 +16,6 @@ const useStyles = makeStyles((theme: Theme) => ({
 
     textField: {
         margin : "normal",
-        //marginLeft: theme.spacing(1),
-        //marginRight: theme.spacing(1),
         width: 200,
     },
 
@@ -32,10 +29,16 @@ const useStyles = makeStyles((theme: Theme) => ({
     }
 }))
 
+interface Props {
+    
+    
+    addCourse: (course: Course) => void
+}
+
 export const AddCourse: React.FC = () => {
     const classes = useStyles()
     const [courseName, setCourseName] = useState('')
-    const [CRNnumber, setCRNnumber] = useState('')
+    const [desiredGrade, setdesiredGrade] = useState('')
     const [open, setOpen] = React.useState(false);
 
     const handleOpen = () => {
@@ -77,7 +80,7 @@ export const AddCourse: React.FC = () => {
                         name="courseName"
                         className={classes.textField}
                         label="Course Name"
-                        placeholder="e.g) CSC225"
+                        placeholder="CSC 225"
                         value={courseName}
                         onChange={(event) => {
                             setCourseName(event.currentTarget.value)
@@ -86,18 +89,18 @@ export const AddCourse: React.FC = () => {
                     <br />
 
                     <TextField
-                        name="CRNnumber"
+                        name="Desired Grade"
                         className={classes.textField}
-                        label="CRN"
-                        placeholder="e.g) 12345"
-                        value={CRNnumber}
+                        label="Desired Grade"
+                        placeholder="7.5"
+                        value={desiredGrade}
                         onChange={(event) => {
-                            setCRNnumber(event.currentTarget.value)
+                            setdesiredGrade(event.currentTarget.value)
                         }} />
 
                     <br />
 
-                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                    <MuiPickersUtilsProvider >
                         <Grid container justify="space-around">
                             <KeyboardDatePicker
                                 disableToolbar
@@ -109,7 +112,7 @@ export const AddCourse: React.FC = () => {
                                 value={startDate}
                                 onChange={setStartDate}
                                 KeyboardButtonProps={{
-                                    'aria-label': 'change date',
+                                    'aria-label': 'Change start date',
                                 }}
                             />
 
@@ -123,7 +126,7 @@ export const AddCourse: React.FC = () => {
                                 value={endDate}
                                 onChange={setEndDate}
                                 KeyboardButtonProps={{
-                                    'aria-label': 'change date',
+                                    'aria-label': 'Change end date',
                                 }}
                             />
                         </Grid>
@@ -131,33 +134,19 @@ export const AddCourse: React.FC = () => {
 
                     <Button
                         className={classes.button} 
-                        variant='contained'
+                        variant='text'
                         color='primary'
+                        //onClick={addCourse}
                         >Submit</Button>
 
                     <Button
                         className={classes.button} 
-                        variant='outlined'
+                        variant='text'
                         color='secondary'
                         onClick={handleClose}
                         >Cancel</Button>
                 </div>
             </Modal>
-
-            {/* below, just testing if textfields are actually fetching the info*/}
-
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-            <p>course name: {courseName}</p>
-            <p>CRN: {CRNnumber}</p>
-
-            <p>Start date: {startDate ? startDate.toString() : ''}</p>
-            <p>End Date: {endDate ? endDate.toString() : ''}</p>
-
         </div>
     )
 }
