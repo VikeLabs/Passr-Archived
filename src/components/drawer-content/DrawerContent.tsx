@@ -1,15 +1,15 @@
-import React from 'react';
-import Divider from '@material-ui/core/Divider';
-import Box from '@material-ui/core/Box';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import Collapse from '@material-ui/core/Collapse';
-import ExpandLess from '@material-ui/icons/ExpandLess';
-import ExpandMore from '@material-ui/icons/ExpandMore';
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import CSS from 'csstype';
-import {user1} from '../../services/storage/mock'
+import React from 'react'
+import Divider from '@material-ui/core/Divider'
+import Box from '@material-ui/core/Box'
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemText from '@material-ui/core/ListItemText'
+import Collapse from '@material-ui/core/Collapse'
+import ExpandLess from '@material-ui/icons/ExpandLess'
+import ExpandMore from '@material-ui/icons/ExpandMore'
+import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
+import CSS from 'csstype'
+import { user1 } from '../../services/storage/mock'
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
