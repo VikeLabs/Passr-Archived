@@ -16,7 +16,6 @@ export const App: React.FC = () => {
     return (
         <div id="app" className={classes.root}>
             <NavBar />
-            {/* <Drawer /> */}
             <h1>Passr</h1>
             <p>Congratulation, you have successfully started Passr.</p>
         </div>
