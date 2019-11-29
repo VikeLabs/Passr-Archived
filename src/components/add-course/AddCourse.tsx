@@ -5,7 +5,10 @@ import TextField from '@material-ui/core/TextField'
 import Modal from '@material-ui/core/Modal';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 import Grid from '@material-ui/core/Grid';
-//import { Course } from '../../services/storage
+import { Course } from '../../services/storage';
+import dayjs from 'dayjs';
+import dayjsutil from '@date-io/dayjs';
+
 
 const useStyles = makeStyles((theme: Theme) => ({
 
@@ -30,12 +33,10 @@ const useStyles = makeStyles((theme: Theme) => ({
 }))
 
 interface Props {
-    
-    
     addCourse: (course: Course) => void
 }
 
-export const AddCourse: React.FC = () => {
+export const AddCourse: React.FC<Props> = ({ addCourse }: Props) => {
     const classes = useStyles()
     const [courseName, setCourseName] = useState('')
     const [desiredGrade, setdesiredGrade] = useState('')
@@ -46,15 +47,31 @@ export const AddCourse: React.FC = () => {
     };
 
     const handleClose = () => {
+        // reset data
+        setCourseName(''),
+        setdesiredGrade(''),
+        setStartDate(dayjs())
+        setEndDate(dayjs())
         setOpen(false);
     };
 
-    const [startDate, setStartDate] = React.useState<Date | null>(
-        new Date(),
+    const handleSubmit = () => {
+        console.log('SUBMIT')
+        const courseData: Course = {
+            name: courseName,
+            destiredGrade: Number(desiredGrade),
+            items: [],
+        }
+        addCourse(courseData)
+        handleClose()
+    }
+
+    const [startDate, setStartDate] = React.useState<dayjs.Dayjs | null>(
+        dayjs(),
     );
 
-    const [endDate, setEndDate] = React.useState<Date | null>(
-        new Date(),
+    const [endDate, setEndDate] = React.useState<dayjs.Dayjs | null>(
+        dayjs(),
     );
 
     return (
@@ -100,12 +117,12 @@ export const AddCourse: React.FC = () => {
 
                     <br />
 
-                    <MuiPickersUtilsProvider >
+                    <MuiPickersUtilsProvider utils={dayjsutil}>
                         <Grid container justify="space-around">
                             <KeyboardDatePicker
                                 disableToolbar
                                 variant="inline"
-                                format="MM/dd/yyyy"
+                                format="MM/DD/YYYY"
                                 margin="normal"
                                 id="startDate"
                                 label="start Date"
@@ -119,7 +136,7 @@ export const AddCourse: React.FC = () => {
                             <KeyboardDatePicker
                                 disableToolbar
                                 variant="inline"
-                                format="MM/dd/yyyy"
+                                format="MM/DD/YYYY"
                                 margin="normal"
                                 id="EndDate"
                                 label="End Date"
@@ -136,7 +153,7 @@ export const AddCourse: React.FC = () => {
                         className={classes.button} 
                         variant='text'
                         color='primary'
-                        //onClick={addCourse}
+                        onClick={handleSubmit}
                         >Submit</Button>
 
                     <Button
