@@ -26,7 +26,8 @@ const useStyles = makeStyles((theme: Theme) =>
             alignSelf: 'flex-end',
         },
         inputContainer: {
-            justifyContent: 'space-around',
+            justifyContent: 'space-between',
+            padding: '8px',
             transition: 'all 1s ease-out',
         },
         root: {

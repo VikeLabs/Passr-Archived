@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         width: 200,
     },
     button: {
-        display: 'grid',
+        // display: 'grid',
     },
     buttonContainer: {
         justifyContent: 'space-around',
@@ -41,6 +41,9 @@ const useStyles = makeStyles((theme: Theme) => ({
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    addButtonContainer: {
+        textAlign: 'center',
     },
 }))
 
@@ -63,7 +66,7 @@ export const AddCourse: React.FC = () => {
     const [endDate, setEndDate] = React.useState<Date | null>(new Date())
 
     return (
-        <div>
+        <div className={classes.addButtonContainer}>
             <Button
                 type="button"
                 onClick={handleOpen}
@@ -136,7 +139,7 @@ export const AddCourse: React.FC = () => {
                     <Grid container className={classes.buttonContainer}>
                         <Button
                             className={classes.button}
-                            variant="outlined"
+                            variant="text"
                             color="secondary"
                             onClick={handleClose}
                         >
@@ -144,7 +147,7 @@ export const AddCourse: React.FC = () => {
                         </Button>
                         <Button
                             className={classes.button}
-                            variant="contained"
+                            variant="text"
                             color="primary"
                         >
                             Submit

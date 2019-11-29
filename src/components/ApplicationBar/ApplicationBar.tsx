@@ -54,6 +54,7 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         content: {
             flexGrow: 1,
+            maxWidth: '500px',
             padding: theme.spacing(3),
         },
     }),
@@ -126,7 +127,9 @@ export default function ApplicationBar() {
                         ModalProps={{
                             keepMounted: true, // Better open performance on mobile.
                         }}
-                    ></Drawer>
+                    >
+                        {drawer}
+                    </Drawer>
                 </Hidden>
                 <Hidden xsDown implementation="css">
                     <Drawer

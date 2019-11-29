@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme: Theme) =>
             padding: theme.spacing(1),
         },
         inputContainer: {
-            justifyContent: 'space-around',
+            justifyContent: 'space-between',
         },
     }),
 )

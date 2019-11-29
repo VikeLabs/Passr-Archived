@@ -17,10 +17,12 @@ const useStyles = makeStyles((theme: Theme) =>
         root: {
             width: '100%',
             maxWidth: 500,
-            backgroundColor: theme.palette.background.paper,
         },
         nested: {
             paddingLeft: theme.spacing(4),
+        },
+        listItem: {
+            backgroundColor: theme.palette.background.paper,
         },
     }),
 )
@@ -56,6 +58,7 @@ const CurrentCourses = (props: { courses: string[] }) => {
                             button
                             selected={selectedIndex === index}
                             onClick={event => handleListItemClick(event, index)}
+                            className={classes.listItem}
                         >
                             <ListItemText primary={course} style={textStyles} />
                         </ListItem>
@@ -90,6 +93,7 @@ function PreviousCourses(props: { previousSemesters: PreviousSemesters }) {
                             onClick={event =>
                                 handleNestedListItemClick(event, index)
                             }
+                            className={classes.listItem}
                         >
                             <ListItemText
                                 primary={previousSemester.name}
@@ -168,7 +172,6 @@ export const DrawerContent: React.FC = () => {
 
             {CurrentCourses({ courses })}
 
-            <Divider />
             <AddCourse />
 
             <Box style={textStyles}>
