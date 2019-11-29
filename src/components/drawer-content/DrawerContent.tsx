@@ -10,6 +10,7 @@ import ExpandMore from '@material-ui/icons/ExpandMore'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
 import CSS from 'csstype'
 import { user1 } from '../../services/storage/mock'
+import AddCourse from '../add-course/AddCourse'
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -166,6 +167,9 @@ export const DrawerContent: React.FC = () => {
             </Box>
 
             {CurrentCourses({ courses })}
+
+            <Divider />
+            <AddCourse />
 
             <Box style={textStyles}>
                 <h2 style={{}}>Previous Courses:</h2>
