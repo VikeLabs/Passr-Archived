@@ -11,6 +11,7 @@ import {
     Drawer,
 } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu'
+import DrawerContent from '../drawer-content/DrawerContent'
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -55,9 +56,7 @@ export const NavBar: React.FC = () => {
                 </Toolbar>
             </AppBar>
             <Drawer open={open} onClose={() => setOpen(false)}>
-                <div>
-                    <h1>Drawer</h1>
-                </div>
+                <DrawerContent />
             </Drawer>
         </div>
     )
