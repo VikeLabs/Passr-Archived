@@ -16,6 +16,8 @@ module.exports =  {
     rules:  {
         '@typescript-eslint/explicit-function-return-type': 'off',
     },
+    reportUnusedDisableDirectives: true, // Want to make sure the disable directives are always being used
+    root: true, // This is the root eslint file (not a nested eslint file)
     settings:  {
       react:  {
         version:  'detect',  // Tells eslint-plugin-react to automatically detect the version of React to use
