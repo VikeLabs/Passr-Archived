@@ -7,8 +7,8 @@
         "test": "jest",
         "build:prod": "webpack --mode production",
         "start": "webpack-dev-server",
-        "lint": "npx eslint \"**/*.{t,j}s{x,}\"",
-        "lint:fix": "npx eslint --fix \"**/*.{t,j}s{x,}\""
+        "lint": "eslint \"**/*.{t,j}s{x,}\"",
+        "lint:fix": "eslint --fix \"**/*.{t,j}s{x,}\""
     },
     "repository": {
         "type": "git",
