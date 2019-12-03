@@ -19,7 +19,6 @@ const drawerContent = (
 )
 
 export const App: React.FC = () => {
-
     const classes = useStyles()
     
     const [isSignedIn, setIsSignedIn] = useState(false)
