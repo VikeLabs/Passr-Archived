@@ -4,7 +4,7 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "test": "jest",
+        "test": "echo 'TESTS NOT CONFIGURED'",
         "build:prod": "webpack --mode production",
         "start": "webpack-dev-server",
         "lint": "eslint \"**/*.{t,j}s{x,}\"",
