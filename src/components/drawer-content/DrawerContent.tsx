@@ -7,34 +7,9 @@ import ListItemText from '@material-ui/core/ListItemText'
 import Collapse from '@material-ui/core/Collapse'
 import ExpandLess from '@material-ui/icons/ExpandLess'
 import ExpandMore from '@material-ui/icons/ExpandMore'
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
-import CSS from 'csstype'
 import { user1 } from '../../services/storage/mock'
+import useStyles from './Style'
 
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        root: {
-            width: '100%',
-            maxWidth: 500,
-            backgroundColor: theme.palette.background.paper,
-        },
-        nested: {
-            paddingLeft: theme.spacing(4),
-        },
-    }),
-)
-
-// CSS Styles
-const drawerContent: CSS.Properties = {
-    backgroundColor: '#F5F5F5',
-    paddingTop: '30px',
-    paddingBottom: '30px',
-    height: '100%',
-}
-const textStyles: CSS.Properties = {
-    paddingLeft: '30px',
-    paddingRight: '30px',
-}
 
 const CurrentCourses = (props: { courses: string[] }) => {
     const classes = useStyles()
@@ -56,7 +31,7 @@ const CurrentCourses = (props: { courses: string[] }) => {
                             selected={selectedIndex === index}
                             onClick={event => handleListItemClick(event, index)}
                         >
-                            <ListItemText primary={course} style={textStyles} />
+                            <ListItemText primary={course} className={useStyles().textStyles} />
                         </ListItem>
                         <Divider />
                     </>
@@ -92,7 +67,7 @@ function PreviousCourses(props: { previousSemesters: PreviousSemesters }) {
                         >
                             <ListItemText
                                 primary={previousSemester.name}
-                                style={textStyles}
+                                className={useStyles().textStyles}
                             />
                             {open ? <ExpandLess /> : <ExpandMore />}
                         </ListItem>
@@ -108,7 +83,7 @@ function PreviousCourses(props: { previousSemesters: PreviousSemesters }) {
                                                     className={classes.nested}
                                                 >
                                                     <ListItemText
-                                                        style={textStyles}
+                                                        className={useStyles().textStyles}
                                                         primary={course}
                                                     />
                                                 </ListItem>
@@ -154,9 +129,9 @@ export const DrawerContent: React.FC = () => {
     //      On any nested loop click, all nested lists open and close -> should only open and close specific nested list
 
     return (
-        <div id="drawer_content" style={drawerContent}>
-            <Box style={textStyles}>
-                <h1 style={{ paddingBottom: '0px', lineHeight: '0px' }}>
+        <div id="drawer_content" className={useStyles().drawerContent}>
+            <Box className={useStyles().textStyles}>
+                <h1>
                     {currentSemester}
                 </h1>
                 <h4 style={{ paddingLeft: '15px', paddingTop: '0px' }}>
@@ -167,8 +142,8 @@ export const DrawerContent: React.FC = () => {
 
             {CurrentCourses({ courses })}
 
-            <Box style={textStyles}>
-                <h2 style={{}}>Previous Courses:</h2>
+            <Box className={useStyles().textStyles}>
+                <h2>Previous Courses:</h2>
             </Box>
 
             {PreviousCourses({ previousSemesters })}
