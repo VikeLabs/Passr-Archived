@@ -9,6 +9,8 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, useTheme, Theme, createStyles } from '@material-ui/core/styles';
 
+import Settings from '../Settings/Settings'
+
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -127,7 +129,7 @@ export default function ApplicationBar() {
         <div className={classes.toolbar} />
         {/* Insert CourseContent here */}
         <Typography paragraph>
-          INSERT CONTENT HERE
+          <Settings />
         </Typography>
       </main>
     </div>

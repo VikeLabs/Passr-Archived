@@ -16,7 +16,6 @@ export const App: React.FC = () => {
     return (
         <div id="app" className={classes.root}>
             <ApplicationBar/>
-            <h1>Content put here will not be rendered properly </h1>
         </div>
     )
 }
