@@ -43,14 +43,17 @@ const CurrentCourses = (props: { courses: string[] }) => {
 
 function PreviousCourses(props: { previousSemesters: PreviousSemesters }) {
     const classes = useStyles()
-    const [open, setOpen] = React.useState(false)
+    const initialCollapse = props.previousSemesters.map((previousSemester) => false);
+    const [collapses, setCollapses] = React.useState(initialCollapse)
     const [selectedIndex, setSelectedIndex] = React.useState(-1)
     const handleNestedListItemClick = (
         event: React.MouseEvent<HTMLDivElement, MouseEvent>,
         index: number,
     ) => {
         setSelectedIndex(index)
-        setOpen(!open)
+        const newCollapses = [...collapses]
+        newCollapses[index] = !newCollapses[index]
+        setCollapses(newCollapses)
     }
 
     return (
@@ -69,10 +72,10 @@ function PreviousCourses(props: { previousSemesters: PreviousSemesters }) {
                                 primary={previousSemester.name}
                                 className={useStyles().textStyles}
                             />
-                            {open ? <ExpandLess /> : <ExpandMore />}
+                            {collapses[index] ? <ExpandLess /> : <ExpandMore />}
                         </ListItem>
                         <Divider />
-                        <Collapse in={open} timeout="auto" unmountOnExit>
+                        <Collapse in={collapses[index]} timeout="auto" unmountOnExit>
                             <List component="div" disablePadding>
                                 {previousSemester.courses.map(
                                     (course, index) => {
