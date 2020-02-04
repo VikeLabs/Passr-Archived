@@ -16,6 +16,7 @@ import {
 import { DrawerContent } from '../drawer-content/DrawerContent'
 import { Course, User, loadUser } from '../../services/storage'
 import { CourseContent } from '../course-content/CourseContent'
+import  UploadDialog  from '../upload-dialog/UploadDialog'
 
 const drawerWidth = 240
 
@@ -112,6 +113,7 @@ export default function ApplicationBar() {
                         ></IconButton>
                     </div>
                 </Toolbar>
+                
             </AppBar>
             <nav className={classes.drawer} aria-label="mailbox folders">
                 {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
@@ -145,6 +147,7 @@ export default function ApplicationBar() {
             </nav>
             <main className={classes.content}>
                 <div className={classes.toolbar} />
+                <UploadDialog/>
                 {/* Insert CourseContent here */}
                 {user && (
                     <CourseContent
