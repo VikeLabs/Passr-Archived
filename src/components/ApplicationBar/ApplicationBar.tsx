@@ -130,7 +130,6 @@ export default function ApplicationBar() {
         {/* Insert CourseContent here */}
         <Typography paragraph>
         </Typography>
-        <AddCourse addCourse={() => {}} />
       </main>
     </div>
   );
