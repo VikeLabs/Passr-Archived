@@ -6,8 +6,8 @@ import Modal from '@material-ui/core/Modal';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 import Grid from '@material-ui/core/Grid';
 import { Course } from '../../services/storage';
-import dayjs from 'dayjs';
-import dayjsutil from '@date-io/dayjs';
+import 'date-fns'
+import DateFnsUtils from '@date-io/date-fns'
 
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -28,7 +28,14 @@ const useStyles = makeStyles((theme: Theme) => ({
     modal: {
         position: 'absolute',
         width: 400,
-        backgroundColor: theme.palette.background.paper
+        backgroundColor: theme.palette.background.paper,
+        top: `calc(50% -  100px)`,
+        left: `calc(50% - 200px)`,
+        padding: theme.spacing(2),
+        display: 'flex',
+        flexDirection: 'column',
+        // justifyContent: 'center',
+        // alignItems: 'center',
     }
 }))
 
@@ -48,10 +55,10 @@ export const AddCourse: React.FC<Props> = ({ addCourse }: Props) => {
 
     const handleClose = () => {
         // reset data
-        setCourseName(''),
-        setdesiredGrade(''),
-        setStartDate(dayjs())
-        setEndDate(dayjs())
+        // setCourseName(''),
+        // setdesiredGrade(''),
+        // setStartDate(())
+        // setEndDate(dayjs())
         setOpen(false);
     };
 
@@ -66,13 +73,9 @@ export const AddCourse: React.FC<Props> = ({ addCourse }: Props) => {
         handleClose()
     }
 
-    const [startDate, setStartDate] = React.useState<dayjs.Dayjs | null>(
-        dayjs(),
-    );
+    const [startDate, setStartDate] = React.useState<Date | null>(new Date());
 
-    const [endDate, setEndDate] = React.useState<dayjs.Dayjs | null>(
-        dayjs(),
-    );
+    const [endDate, setEndDate] = React.useState<Date | null>(new Date());
 
     return (
 
@@ -117,12 +120,12 @@ export const AddCourse: React.FC<Props> = ({ addCourse }: Props) => {
 
                     <br />
 
-                    <MuiPickersUtilsProvider utils={dayjsutil}>
-                        <Grid container justify="space-around">
+                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                        <Grid container justify="flex-start">
                             <KeyboardDatePicker
                                 disableToolbar
                                 variant="inline"
-                                format="MM/DD/YYYY"
+                                format="MM/dd/yyyy"
                                 margin="normal"
                                 id="startDate"
                                 label="start Date"
@@ -136,7 +139,7 @@ export const AddCourse: React.FC<Props> = ({ addCourse }: Props) => {
                             <KeyboardDatePicker
                                 disableToolbar
                                 variant="inline"
-                                format="MM/DD/YYYY"
+                                format="MM/dd/yyyy"
                                 margin="normal"
                                 id="EndDate"
                                 label="End Date"
@@ -148,20 +151,21 @@ export const AddCourse: React.FC<Props> = ({ addCourse }: Props) => {
                             />
                         </Grid>
                     </MuiPickersUtilsProvider>
+                    <Grid container justify="flex-start">
+                        <Button
+                            className={classes.button} 
+                            variant='text'
+                            color='primary'
+                            onClick={handleSubmit}
+                            >Submit</Button>
 
-                    <Button
-                        className={classes.button} 
-                        variant='text'
-                        color='primary'
-                        onClick={handleSubmit}
-                        >Submit</Button>
-
-                    <Button
-                        className={classes.button} 
-                        variant='text'
-                        color='secondary'
-                        onClick={handleClose}
-                        >Cancel</Button>
+                        <Button
+                            className={classes.button} 
+                            variant='text'
+                            color='secondary'
+                            onClick={handleClose}
+                            >Cancel</Button>
+                    </Grid>
                 </div>
             </Modal>
         </div>

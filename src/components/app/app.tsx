@@ -2,6 +2,7 @@ import React from 'react'
 import NavBar from '../nav/nav'
 import { makeStyles, Theme, createStyles, Grid, AppBar } from '@material-ui/core'
 import ApplicationBar from '../ApplicationBar/ApplicationBar'
+import AddCourse from '../AddCourse/AddCourse'
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -15,7 +16,8 @@ export const App: React.FC = () => {
     const classes = useStyles()
     return (
         <div id="app" className={classes.root}>
-            <ApplicationBar/>
+            <ApplicationBar />
+            
             <h1>Content put here will not be rendered properly </h1>
         </div>
     )
