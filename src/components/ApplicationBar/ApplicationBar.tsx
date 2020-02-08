@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { FunctionComponent } from 'react'
 import AppBar from '@material-ui/core/AppBar'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import Drawer from '@material-ui/core/Drawer'
@@ -56,7 +56,14 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 )
 
-export default function ApplicationBar() {
+interface ApplicationBarProps {
+    drawerContent: React.ReactNode
+}
+
+const ApplicationBar: FunctionComponent<ApplicationBarProps> = ({
+    drawerContent,
+    children,
+}) => {
     const classes = useStyles()
     const theme = useTheme()
     const [mobileOpen, setMobileOpen] = React.useState(false)
@@ -64,12 +71,6 @@ export default function ApplicationBar() {
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen)
     }
-
-    const drawer = (
-        <div>
-            <h1>HELLO THIS IS DRAWER</h1>
-        </div>
-    )
 
     return (
         <div className={classes.root}>
@@ -122,15 +123,16 @@ export default function ApplicationBar() {
                         variant="permanent"
                         open
                     >
-                        {drawer}
+                        {drawerContent}
                     </Drawer>
                 </Hidden>
             </nav>
             <main className={classes.content}>
                 <div className={classes.toolbar} />
-                {/* Insert CourseContent here */}
-                <Typography paragraph>INSERT CONTENT HERE</Typography>
+                {children}
             </main>
         </div>
     )
 }
+
+export default ApplicationBar
