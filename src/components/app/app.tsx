@@ -1,15 +1,8 @@
 import React from 'react'
-import NavBar from '../nav/nav'
-import {
-    makeStyles,
-    Theme,
-    createStyles,
-    Grid,
-    AppBar,
-} from '@material-ui/core'
+import { makeStyles, createStyles } from '@material-ui/core'
 import ApplicationBar from '../ApplicationBar/ApplicationBar'
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
     createStyles({
         root: {
             display: 'grid',
