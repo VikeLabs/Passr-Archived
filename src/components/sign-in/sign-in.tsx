@@ -23,19 +23,15 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function SignInButton(props: Props) {
   const classes = useStyles();
   let buttonText = ''
-  let buttonColor: 'primary' | 'secondary' | undefined = undefined
 
   if(props.isSignedIn) {
     buttonText = 'Sign Out'
-    buttonColor = 'secondary'
   } else {
-    buttonText = 'Sign In'
-    buttonColor = 'primary'
-  }
+    buttonText = 'Sign In'  }
 
   return (
     <div>
-      <Button variant='contained' color={buttonColor} className={classes.button} onClick={props.changeSignIn}>
+      <Button variant='contained' color='secondary' className={classes.button} onClick={props.changeSignIn}>
         {buttonText}
       </Button>
     </div>

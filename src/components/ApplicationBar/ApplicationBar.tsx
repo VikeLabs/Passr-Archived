@@ -14,6 +14,8 @@ import {
     createStyles,
 } from '@material-ui/core/styles'
 
+import SignIn from '../sign-in/sign-in'
+
 const drawerWidth = 240
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -53,6 +55,9 @@ const useStyles = makeStyles((theme: Theme) =>
             flexGrow: 1,
             padding: theme.spacing(3),
         },
+        signInButton: {
+            marginLeft: 'auto',
+        }
     }),
 )
 
@@ -97,7 +102,11 @@ const ApplicationBar: FunctionComponent<ApplicationBarProps> = ({
                             color="inherit"
                         ></IconButton>
                     </div>
+                    <div className={classes.signInButton}>
+                        <SignIn isSignedIn={false} changeSignIn={() => {}}/>
+                    </div>
                 </Toolbar>
+                
             </AppBar>
             <nav className={classes.drawer} aria-label="mailbox folders">
                 {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
