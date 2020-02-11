@@ -16,3 +16,15 @@ function convert(grade : number, convertTo : number) {
     return newArr[Math.trunc(grade)]
 }
 
+interface GpaInfo {
+    key: string
+    value: number
+    description: string
+}
+
+const infos: GpaInfo[] = [
+    { key: 'Scheme 1', value: 0, description: 'C += 2.3, 4.00 scale' },
+    { key: 'Scheme 2', value: 1, description: 'C += 2.33, 4.00 scale' },
+    { key: 'Scheme 3', value: 2, description: 'C += 2.3, 4.33 scale' },
+    { key: 'Scheme 4', value: 3, description: 'C += 2.33, 4.33 scale' },
+]
