@@ -15,6 +15,7 @@ module.exports =  {
     },
     rules:  {
         '@typescript-eslint/explicit-function-return-type': 'off',
+        'react/prop-types': 'off', // Not needed because typescript can give us strong typing
     },
     reportUnusedDisableDirectives: true, // Want to make sure the disable directives are always being used
     root: true, // This is the root eslint file (not a nested eslint file)
