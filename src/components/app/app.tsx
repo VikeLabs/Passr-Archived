@@ -1,6 +1,8 @@
-import React from 'react'
-import { makeStyles, createStyles } from '@material-ui/core'
+import React, { useState } from 'react'
+import NavBar from '../nav/nav'
+import { makeStyles, Theme, createStyles, Grid, AppBar } from '@material-ui/core'
 import ApplicationBar from '../ApplicationBar/ApplicationBar'
+import SignInButton from '../sign-in/sign-in'
 
 const useStyles = makeStyles(() =>
     createStyles({
@@ -18,6 +20,13 @@ const drawerContent = (
 
 export const App: React.FC = () => {
     const classes = useStyles()
+    
+    const [isSignedIn, setIsSignedIn] = useState(false)
+
+    const changeSignIn = () => {
+        setIsSignedIn(!isSignedIn)
+    }
+    
     return (
         <div id="app" className={classes.root}>
             <ApplicationBar drawerContent={drawerContent}>

@@ -3,3 +3,6 @@ dist/
 
 # Ignore node modules (dependencies)
 node_modules/
+
+# Ignore vscode local config
+.vscode/
