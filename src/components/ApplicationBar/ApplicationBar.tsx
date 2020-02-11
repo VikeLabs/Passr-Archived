@@ -113,7 +113,9 @@ const ApplicationBar: FunctionComponent<ApplicationBarProps> = ({
                         ModalProps={{
                             keepMounted: true, // Better open performance on mobile.
                         }}
-                    ></Drawer>
+                    >
+                        {drawerContent}
+                    </Drawer>
                 </Hidden>
                 <Hidden xsDown implementation="css">
                     <Drawer
