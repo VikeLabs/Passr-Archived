@@ -13,7 +13,12 @@ const gpaMatrix = [
 
 function convert(grade: number, convertTo: number) {
     var newArr = gpaMatrix[convertTo].reverse()
-    return newArr[Math.trunc(grade)]
+    var wholeNum = newArr[Math.trunc(grade)]
+    var decNum = parseFloat((grade % (Math.trunc(grade))).toFixed(4))
+    if (wholeNum < 9) {
+        decNum = ((newArr[Math.trunc(grade) + 1] - newArr[Math.trunc(grade)]) * decNum);
+    }
+    return wholeNum + decNum
 }
 
 
@@ -31,5 +36,10 @@ const gpaSchemes: GpaInfo[] = [
     { key: 'Scheme 4', value: 3, description: 'C += 2.33, 4.33 scale' },
 ]
 
-
 export { convert, gpaSchemes } 
+
+// Some tests
+// console.log(convert(1.5, 0)) = 1.5
+// console.log(convert(2.37, 1)) = 2.1221
+// console.log(convert(6.87, 2)) = 3.648
+// console.log(convert(8.98, 3)) = 4.3234
