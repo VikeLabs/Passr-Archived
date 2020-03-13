@@ -75,7 +75,7 @@ const course3: Course = {
 
 const course4: Course = {
     name: 'EPHE 155',
-    destiredGrade: 0.9,
+    desiredGrade: 0.9,
     items: [
         { name: 'Assignemnt 1', weight: 0.05 },
         { name: 'Assignment 2', weight: 0.1 },
@@ -93,7 +93,7 @@ const course4: Course = {
 
 const course5: Course = {
     name: 'CSC 421',
-    destiredGrade: 0.75,
+    desiredGrade: 0.75,
     items: [
         { name: 'Assignment 1', weight: 0.05 },
         { name: 'Assignment 2', weight: 0.05 },

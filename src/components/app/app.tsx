@@ -1,6 +1,9 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { makeStyles, createStyles } from '@material-ui/core'
 import ApplicationBar from '../ApplicationBar/ApplicationBar'
+import { User, Course, loadUser } from '../../services/storage'
+import CourseContent from '../course-content/CourseContent'
+import { course1 } from '../../services/storage/mock'
 
 const useStyles = makeStyles(() =>
     createStyles({
@@ -35,7 +38,10 @@ export const App: React.FC = () => {
     return (
         <div id="app" className={classes.root}>
             <ApplicationBar drawerContent={drawerContent}>
-                <h1>Content put here will be rendered properly </h1>
+                <CourseContent
+                    course={course1}
+                    updateCourse={() => {}}
+                ></CourseContent>
             </ApplicationBar>
         </div>
     )

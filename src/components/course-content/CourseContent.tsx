@@ -121,3 +121,5 @@ export const CourseContent: React.FC<Props> = ({
         </Grid>
     )
 }
+
+export default CourseContent
