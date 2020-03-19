@@ -1,10 +1,5 @@
 import { user1 } from './mock'
 
-interface DateRange {
-    start: Date
-    end: Date
-}
-
 interface Fraction {
     numerator: number
     denominator: number
@@ -12,10 +7,9 @@ interface Fraction {
 
 export interface Course {
     name: string
-    destiredGrade: number
+    desiredGrade: number
     items: CourseItem[]
     crn?: number
-    dateRange?: DateRange
 }
 
 export interface CourseItem {
@@ -25,9 +19,14 @@ export interface CourseItem {
     dueDate?: Date
 }
 
+export interface Semester {
+    title: string
+    courses: Course[]
+}
+
 export interface User {
     name: string
-    courses: Course[]
+    semesters: Semester[]
     userId: string
     desiredGpa: number
 }
@@ -38,7 +37,7 @@ export interface User {
  * @param Partial<User> Partial user object for updating the user's info
  */
 export function store(id: string, user: Partial<User>) {
-    ;[user, id] // no-op
+    console.log(`Store: ${id}, ${user}`)
     return Promise.resolve('Success')
 }
 
