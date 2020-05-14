@@ -36,10 +36,6 @@ const course2: Course = {
         { name: 'Lab', weight: 0.3 },
         { name: 'final', weight: 0.45 },
     ],
-    dateRange: {
-        start: new Date(thisSemesterStart),
-        end: new Date(thisSemesterEnd),
-    },
 }
 
 const course3: Course = {
@@ -55,15 +51,11 @@ const course3: Course = {
         { name: 'Project', weight: 0.55 },
         { name: 'Class Participation', weight: 0.1 },
     ],
-    dateRange: {
-        start: new Date(thisSemesterStart),
-        end: new Date(thisSemesterEnd),
-    },
 }
 
 const course4: Course = {
     name: 'EPHE 155',
-    destiredGrade: 0.9,
+    desiredGrade: 0.9,
     items: [
         { name: 'Assignemnt 1', weight: 0.05 },
         { name: 'Assignment 2', weight: 0.1 },
@@ -73,15 +65,11 @@ const course4: Course = {
         { name: 'Midterm', weight: 0.25 },
         { name: 'Final', weight: 0.4 },
     ],
-    dateRange: {
-        start: new Date(lastSemesterStart),
-        end: new Date(lastSemesterEnd),
-    },
 }
 
 const course5: Course = {
     name: 'CSC 421',
-    destiredGrade: 0.75,
+    desiredGrade: 0.75,
     items: [
         { name: 'Assignment 1', weight: 0.05 },
         { name: 'Assignment 2', weight: 0.05 },
@@ -96,9 +84,14 @@ const semester1: Semester = {
     courses: [course1, course2, course3],
 }
 
+const semester2: Semester = {
+    title: 'Summer 2020',
+    courses: [course4, course5],
+}
+
 export const user1: User = {
     name: 'Burt Macklin',
-    semesters: [semester1],
+    semesters: [semester1, semester2],
     userId: '0ab128adf',
     desiredGpa: 7,
 }
