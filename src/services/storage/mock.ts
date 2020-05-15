@@ -93,5 +93,6 @@ export const user1: User = {
     name: 'Burt Macklin',
     semesters: [semester1, semester2],
     userId: '0ab128adf',
+    defaultSemester: 'Summer 2020', // Temp for maintaining current semester
     desiredGpa: 7,
 }

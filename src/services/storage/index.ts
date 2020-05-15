@@ -27,6 +27,7 @@ export interface Semester {
 export interface User {
     name: string
     semesters: Semester[]
+    defaultSemester: string
     userId: string
     desiredGpa: number
 }
