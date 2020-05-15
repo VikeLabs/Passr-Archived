@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { makeStyles, createStyles, Grid } from '@material-ui/core'
 import ApplicationBar from '../ApplicationBar/ApplicationBar'
+import { loadUser, User } from '../../services/storage'
 
 const useStyles = makeStyles(() =>
     createStyles({
@@ -44,6 +45,13 @@ const drawerContent = (
 
 export const App: React.FC = () => {
     const classes = useStyles()
+
+    const [user, setUser] = useState<User | null>(null)
+
+    useEffect(() => {
+        loadUser('').then(user => setUser(user))
+    }, [])
+
     return (
         <div id="app" className={classes.root}>
             <div id="sidebar" className={classes.sidebar}></div>
