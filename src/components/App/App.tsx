@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { makeStyles, createStyles, Grid } from '@material-ui/core'
 import ApplicationBar from '../ApplicationBar/ApplicationBar'
 import { loadUser, User } from '../../services/storage'
+import { Features } from '../../services/features'
 
 const useStyles = makeStyles(() =>
     createStyles({
@@ -47,6 +48,7 @@ export const App: React.FC = () => {
     const classes = useStyles()
 
     const [user, setUser] = useState<User | null>(null)
+    const [selectedFeature, setSelectedFeature] = useState<Features>('calendar')
 
     useEffect(() => {
         loadUser('').then(user => setUser(user))
