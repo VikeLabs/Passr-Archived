@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { makeStyles, createStyles, Grid } from '@material-ui/core'
 import ApplicationBar from '../ApplicationBar/ApplicationBar'
-import { loadUser, User, Semester, Course } from '../../services/storage'
+import Gradebook from '../Gradebook/Gradebook'
+import { loadUser, User, Course } from '../../services/storage'
 import { Features } from '../../services/features'
 
 function copyUser(user: User): User {
@@ -75,6 +76,28 @@ export const App: React.FC = () => {
 
         setUser(newUser)
     }
+    const courseItems = [
+        {
+            name: 'Assignment 1',
+            weight: 0.07,
+            grade: { numerator: 19, denominator: 22 },
+        },
+        {
+            name: 'Assignment 2',
+            weight: 0.07,
+            grade: { numerator: 20, denominator: 22 },
+        },
+        {
+            name: 'Midterm 1',
+            weight: 0.22,
+            grade: { numerator: 76, denominator: 100 },
+        },
+        {
+            name: 'Midterm 2',
+            weight: 0.22,
+            grade: { numerator: 20, denominator: 22 },
+        },
+    ]
 
     useEffect(() => {
         loadUser('').then(user => {
@@ -92,7 +115,9 @@ export const App: React.FC = () => {
             <div id="sidebar" className={classes.sidebar}></div>
             <div id="topbar" className={classes.topbar}></div>
             <div id="account" className={classes.account}></div>
-            <div id="content" className={classes.content}></div>
+            <div id="content" className={classes.content}>
+                <Gradebook name="CSC 370" items={courseItems} />
+            </div>
         </div>
     )
 }
