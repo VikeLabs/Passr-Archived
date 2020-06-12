@@ -24,21 +24,23 @@ interface splitGrade {
 
 interface classMaterial {
     name: string;
-    weight?: number;
-    grade?: splitGrade;
+    weight: number;
+    grade: splitGrade;
 }
 
 
  interface Course {
  name?: string;
- desiredGrade?: number;
  items: classMaterial[];
+ desiredGrade: string;
+setDesiredGrade?: (e: any) => void;
  }
 
-export default function Gradebook( {name, desiredGrade,items}: Course) {
+export default function Gradebook( {name,items, desiredGrade, setDesiredGrade}: Course) {
 const classes = useStyles()
 const currentGradeList = items.map(item=>item.weight&&item.grade ? item.weight*item.grade.numerator/item.grade.denominator : 0);
 const currentGradeTotal=currentGradeList.reduce((grade1,grade2)=>grade1+grade2);
+
     return (
     <Container component="main" maxWidth="md" className={classes.container}>
      <CssBaseline />
@@ -62,7 +64,8 @@ const currentGradeTotal=currentGradeList.reduce((grade1,grade2)=>grade1+grade2);
                 fullWidth
                 id="desiredGrade"
                 label="Desired Grade"
-                name="desiredGrade"
+                value={desiredGrade}
+                onChange={setDesiredGrade}
               />
               </Grid>
               </Grid>
@@ -80,7 +83,7 @@ const currentGradeTotal=currentGradeList.reduce((grade1,grade2)=>grade1+grade2);
                 id={"weight"+ item.name}
                 label="Weight"
                 name="weight"
-                value={item.weight}
+                value={(item.weight*100).toFixed(2) +'%'}
               />
               </Grid>
                <Grid item xs={12} sm={4}>
@@ -91,6 +94,7 @@ const currentGradeTotal=currentGradeList.reduce((grade1,grade2)=>grade1+grade2);
                 id={"grade"+ item.name}
                 label="Grade"
                 name="grade"
+                value={item.grade.numerator + '/' + item.grade.denominator}
               />
               </Grid>
               </Grid> </div>))}

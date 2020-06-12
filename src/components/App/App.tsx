@@ -50,6 +50,8 @@ export const App: React.FC = () => {
 
     const [user, setUser] = useState<User | null>(null)
     const [selectedFeature, setSelectedFeature] = useState<Features>('calendar')
+    const [desiredGrade, setDesiredGrade] = useState<string>("")
+  
     const courseItems =[
         { name: 'Assignment 1', weight: 0.07, grade: { numerator: 19, denominator: 22 } },
         { name: 'Assignment 2', weight: 0.07, grade: { numerator: 20, denominator: 22 } },   {
@@ -71,7 +73,7 @@ export const App: React.FC = () => {
             <div id="sidebar" className={classes.sidebar}></div>
             <div id="topbar" className={classes.topbar}></div>
             <div id="account" className={classes.account}></div>
-            <div id="content" className={classes.content}><Gradebook name='CSC 370' items={courseItems} /></div>
+            <div id="content" className={classes.content}><Gradebook name='CSC 370' items={courseItems} desiredGrade={desiredGrade} setDesiredGrade={event => setDesiredGrade(event.target.value)}/></div>
         </div>
     )
 }
