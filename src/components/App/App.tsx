@@ -2,7 +2,14 @@ import React, { useEffect, useState } from 'react'
 import { makeStyles, createStyles, Grid } from '@material-ui/core'
 import ApplicationBar from '../ApplicationBar/ApplicationBar'
 import Gradebook from '../Gradebook/Gradebook'
-import { loadUser, User, Course } from '../../services/storage'
+import {
+    loadUser,
+    User,
+    Fraction,
+    Course,
+    CourseItem,
+    loadCourse,
+} from '../../services/storage'
 import { Features } from '../../services/features'
 
 function copyUser(user: User): User {
@@ -76,6 +83,8 @@ export const App: React.FC = () => {
 
         setUser(newUser)
     }
+    const [desiredGrade, setDesiredGrade] = useState<string>('')
+    const [course, setCourse] = useState<Course | any>(null)
 
     useEffect(() => {
         loadUser('').then(user => {
@@ -88,6 +97,10 @@ export const App: React.FC = () => {
         })
     }, [])
 
+    useEffect(() => {
+        loadCourse('').then(course => setCourse(course))
+    }, [])
+
     return (
         <div id="app" className={classes.root}>
             <div id="sidebar" className={classes.sidebar}></div>
@@ -95,8 +108,8 @@ export const App: React.FC = () => {
             <div id="account" className={classes.account}></div>
             <div id="content" className={classes.content}>
                 <Gradebook
-                    name="CSC 370"
-                    items={courseItems}
+                    name={course}
+                    items={course && course.items}
                     desiredGrade={desiredGrade}
                     setDesiredGrade={event =>
                         setDesiredGrade(event.target.value)

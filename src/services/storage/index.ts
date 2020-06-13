@@ -1,6 +1,6 @@
-import { user1 } from './mock'
+import { user1, course1 } from './mock'
 
-interface Fraction {
+export interface Fraction {
     numerator: number
     denominator: number
 }
@@ -50,3 +50,9 @@ export function loadUser(id: string) {
     id // no-op
     return Promise.resolve(user1)
 }
+
+export function loadCourse(id: string) {
+    id // no-op
+    return Promise.resolve(course1)
+}
+
