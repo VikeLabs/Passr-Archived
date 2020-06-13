@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { makeStyles, createStyles, Grid } from '@material-ui/core'
-import ApplicationBar from '../ApplicationBar/ApplicationBar'
 import Gradebook from '../Gradebook/Gradebook'
 import { loadUser, User, Fraction, Course, CourseItem, loadCourse} from '../../services/storage'
 import { Features } from '../../services/features'
@@ -25,6 +24,7 @@ const useStyles = makeStyles(() =>
         topbar: {
             gridArea: 'topbar',
             backgroundColor: 'cyan',
+            
         },
 
         account: {
@@ -50,7 +50,6 @@ export const App: React.FC = () => {
 
     const [user, setUser] = useState<User | null>(null)
     const [selectedFeature, setSelectedFeature] = useState<Features>('calendar')
-    const [desiredGrade, setDesiredGrade] = useState<string>("")
     const [course, setCourse] = useState<Course | any>(null)
 
     useEffect(() => {
@@ -67,9 +66,10 @@ export const App: React.FC = () => {
             <div id="sidebar" className={classes.sidebar}></div>
             <div id="topbar" className={classes.topbar}></div>
             <div id="account" className={classes.account}></div>
-            <div id="content" className={classes.content}><Gradebook name={course} items = {course&& course.items} desiredGrade={desiredGrade} setDesiredGrade={event => setDesiredGrade(event.target.value)}/></div>
+            <div id="content" className={classes.content}><Gradebook course={course}  setCourse={setCourse} /></div>
         </div>
     )
 }
 
 export default App
+
