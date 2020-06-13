@@ -6,8 +6,11 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 
 const useStyles = makeStyles((theme) => ({
 container: {
+paddingTop: theme.spacing(2),
     marginTop:theme.spacing(4),
     marginBottom:theme.spacing(4),
+    height: '75vh',
+    overflow: 'auto'
 },
   assignments: {
     marginTop: theme.spacing(2),
@@ -17,29 +20,15 @@ container: {
   },
 }));
 
-interface splitGrade {
-    numerator: number;
-    denominator: number;
-}
-
-interface classMaterial {
-    name: string;
-    weight: number;
-    grade?: splitGrade;
-}
-
-
  interface Course {
- name?: string;
- items?: classMaterial[];
- desiredGrade: string;
- setDesiredGrade?: (e: any) => void;
+ course: any;
+ setCourse: (e: any) => void;
  }
 
-export default function Gradebook( {name,items, desiredGrade, setDesiredGrade}: Course) {
+export default function Gradebook( {course, setCourse}: Course) {
 const classes = useStyles()
-const currentGradeList = items && items.map(item=>item.weight&&item.grade ? item.weight*item.grade.numerator/item.grade.denominator : 0);
-const currentGradeTotal=currentGradeList&&currentGradeList.reduce((grade1,grade2)=>grade1+grade2);
+const currentGradeList = course&&course.items&&course.items.map((item:any)=>item.weight&&item.grade ? item.weight*item.grade.numerator/item.grade.denominator : 0);
+const currentGradeTotal=currentGradeList&&currentGradeList.reduce((grade1:any,grade2:any)=>grade1+grade2);
 
     return (
     <Container component="main" maxWidth="md" className={classes.container}>
@@ -64,12 +53,13 @@ const currentGradeTotal=currentGradeList&&currentGradeList.reduce((grade1,grade2
                 fullWidth
                 id="desiredGrade"
                 label="Desired Grade"
-                value={desiredGrade}
-                onChange={setDesiredGrade}
+                name="desiredGrade"
+                value={course&&course.desiredGrade || ''}
+                onChange={event => setCourse({...course, desiredGrade:event.target.value})}
               />
               </Grid>
               </Grid>
-              {items && items.map(item => (<div key = {item.name}>
+              {course&&course.items && course.items.map((item:any, index: number) => (<div key = {item.name}>
               <Typography
               component="h6" variant="h6" className={classes.assignments}>
               {item.name}

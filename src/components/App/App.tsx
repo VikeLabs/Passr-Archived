@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { makeStyles, createStyles, Grid } from '@material-ui/core'
-import ApplicationBar from '../ApplicationBar/ApplicationBar'
 import Gradebook from '../Gradebook/Gradebook'
 import {
     loadUser,
@@ -107,14 +106,7 @@ export const App: React.FC = () => {
             <div id="topbar" className={classes.topbar}></div>
             <div id="account" className={classes.account}></div>
             <div id="content" className={classes.content}>
-                <Gradebook
-                    name={course}
-                    items={course && course.items}
-                    desiredGrade={desiredGrade}
-                    setDesiredGrade={event =>
-                        setDesiredGrade(event.target.value)
-                    }
-                />
+                <Gradebook course={course} setCourse={setCourse} />
             </div>
         </div>
     )
