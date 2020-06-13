@@ -25,21 +25,21 @@ interface splitGrade {
 interface classMaterial {
     name: string;
     weight: number;
-    grade: splitGrade;
+    grade?: splitGrade;
 }
 
 
  interface Course {
  name?: string;
- items: classMaterial[];
+ items?: classMaterial[];
  desiredGrade: string;
-setDesiredGrade?: (e: any) => void;
+ setDesiredGrade?: (e: any) => void;
  }
 
 export default function Gradebook( {name,items, desiredGrade, setDesiredGrade}: Course) {
 const classes = useStyles()
-const currentGradeList = items.map(item=>item.weight&&item.grade ? item.weight*item.grade.numerator/item.grade.denominator : 0);
-const currentGradeTotal=currentGradeList.reduce((grade1,grade2)=>grade1+grade2);
+const currentGradeList = items && items.map(item=>item.weight&&item.grade ? item.weight*item.grade.numerator/item.grade.denominator : 0);
+const currentGradeTotal=currentGradeList&&currentGradeList.reduce((grade1,grade2)=>grade1+grade2);
 
     return (
     <Container component="main" maxWidth="md" className={classes.container}>
@@ -54,7 +54,7 @@ const currentGradeTotal=currentGradeList.reduce((grade1,grade2)=>grade1+grade2);
                 id="currentGrade"
                 label="Current Grade"
                 name="currentGrade"
-                value={currentGradeTotal}
+                value={currentGradeTotal || ''}
               />
               </Grid>
                <Grid item xs={12} sm={4}>
@@ -69,7 +69,7 @@ const currentGradeTotal=currentGradeList.reduce((grade1,grade2)=>grade1+grade2);
               />
               </Grid>
               </Grid>
-              {items.map(item => (<div key = {item.name}>
+              {items && items.map(item => (<div key = {item.name}>
               <Typography
               component="h6" variant="h6" className={classes.assignments}>
               {item.name}
@@ -94,7 +94,7 @@ const currentGradeTotal=currentGradeList.reduce((grade1,grade2)=>grade1+grade2);
                 id={"grade"+ item.name}
                 label="Grade"
                 name="grade"
-                value={item.grade.numerator + '/' + item.grade.denominator}
+                value={item.grade && item.grade.numerator + '/' + item.grade.denominator}
               />
               </Grid>
               </Grid> </div>))}
