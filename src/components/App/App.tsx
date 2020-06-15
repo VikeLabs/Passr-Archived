@@ -30,15 +30,15 @@ const useStyles = makeStyles(() =>
             display: 'grid',
             gridTemplateColumns: '1.5fr 7fr 1fr',
             width: '100vw',
-            height: '100vh',
-            gridTemplateRows: '1fr 10fr',
+            height: '180vh',
+            gridTemplateRows: '.5fr 10fr',
             gridTemplateAreas: `"sidebar topbar account"
                                 "sidebar content content"`,
         },
 
         sidebar: {
             gridArea: 'sidebar',
-            backgroundColor: 'pink',
+            backgroundColor: '#ffdde2',
         },
 
         topbar: {
@@ -53,7 +53,7 @@ const useStyles = makeStyles(() =>
 
         content: {
             gridArea: 'content',
-            backgroundColor: 'yellow',
+            backgroundColor: '#E5E5E5'
         },
     }),
 )
