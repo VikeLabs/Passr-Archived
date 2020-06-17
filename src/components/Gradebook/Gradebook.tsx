@@ -13,6 +13,18 @@ import {
 import CssBaseline from '@material-ui/core/CssBaseline'
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline'
 
+import { Course, CourseItem } from '../../services/storage'
+import { AddItem } from './AddItem'
+
+const fractionRegex = /^([0-9]+)\/([0-9]+)$/
+
+function copyCourse(course: Course): Course {
+    return {
+        ...course,
+        items: course.items.map(item => ({ ...item })),
+    }
+}
+
 const useStyles = makeStyles(theme => ({
     container: {
         paddingTop: theme.spacing(2),
@@ -58,18 +70,20 @@ const useStyles = makeStyles(theme => ({
     },
 }))
 
-interface Course {
-    course: any
-    setCourse: (e: any) => void
+interface Props {
+    course: Course
+    updateCourse: (course: Course) => void
 }
 
-export default function Gradebook({ course, setCourse }: Course) {
+export function Gradebook({ course, updateCourse }: Props) {
     const classes = useStyles()
     const currentGradeList =
         course &&
         course.items &&
-        course.items.map((item: any) =>
-            item.weight && item.grade
+        course.items.map(item =>
+            typeof item.grade === 'number'
+                ? item.weight * item.grade
+                : item.grade
                 ? (item.weight * item.grade.numerator) / item.grade.denominator
                 : 0,
         )
@@ -85,6 +99,12 @@ export default function Gradebook({ course, setCourse }: Course) {
 
     const handleClose = () => {
         setOpen(false)
+    }
+
+    const addItem = (item: CourseItem) => {
+        const newCourse = copyCourse(course)
+        newCourse.items.push(item)
+        updateCourse(newCourse)
     }
 
     return (
@@ -124,60 +144,74 @@ export default function Gradebook({ course, setCourse }: Course) {
                             name="desiredGrade"
                             value={(course && course.desiredGrade) || ''}
                             onChange={event =>
-                                setCourse({
+                                updateCourse({
                                     ...course,
-                                    desiredGrade: event.target.value,
+                                    desiredGrade:
+                                        Number(event.target.value) || 0,
                                 })
                             }
+                            // Think about number validation for this component
                         />
                     </Grid>
                 </Grid>
                 <div className={classes.assignmentContainer}>
                     {course &&
                         course.items &&
-                        course.items.map((item: any, index: number) => (
-                            <div key={item.name}>
-                                <Typography
-                                    component="h6"
-                                    variant="h6"
-                                    className={classes.assignments}
-                                >
-                                    {item.name}
-                                </Typography>
-                                <Grid container spacing={2}>
-                                    <Grid item xs={12} sm={6}>
-                                        <TextField
-                                            variant="outlined"
-                                            required
-                                            fullWidth
-                                            id={'weight' + item.name}
-                                            label="Weight"
-                                            name="weight"
-                                            value={
-                                                (item.weight * 100).toFixed(2) +
-                                                '%'
-                                            }
-                                        />
-                                    </Grid>
-                                    <Grid item xs={12} sm={6}>
-                                        <TextField
-                                            variant="outlined"
-                                            required
-                                            fullWidth
-                                            id={'grade' + item.name}
-                                            label="Grade"
-                                            name="grade"
-                                            value={
-                                                item.grade &&
-                                                item.grade.numerator +
-                                                    '/' +
-                                                    item.grade.denominator
-                                            }
-                                        />
-                                    </Grid>
-                                </Grid>{' '}
-                            </div>
-                        ))}{' '}
+                        course.items.map((item, index) => {
+                            const value = !item.grade
+                                ? ''
+                                : typeof item.grade === 'number'
+                                ? `${item.grade}`
+                                : `${item.grade.numerator}/${item.grade.denominator}`
+                            return (
+                                <div key={item.name}>
+                                    <Typography
+                                        component="h6"
+                                        variant="h6"
+                                        className={classes.assignments}
+                                    >
+                                        {item.name}
+                                    </Typography>
+                                    <Grid container spacing={2}>
+                                        <Grid item xs={12} sm={6}>
+                                            <TextField
+                                                variant="outlined"
+                                                required
+                                                fullWidth
+                                                id={'weight' + item.name}
+                                                label="Weight"
+                                                name="weight"
+                                                value={
+                                                    (item.weight * 100).toFixed(
+                                                        2,
+                                                    ) + '%'
+                                                }
+                                            />
+                                        </Grid>
+                                        <Grid item xs={12} sm={6}>
+                                            <TextField
+                                                variant="outlined"
+                                                required
+                                                fullWidth
+                                                id={'grade' + item.name}
+                                                label="Grade"
+                                                name="grade"
+                                                value={value}
+                                                onChange={event => {
+                                                    const newCourse = copyCourse(
+                                                        course,
+                                                    )
+                                                    newCourse.items[
+                                                        index
+                                                    ].grade = event.target.value // parse the event.target.value into a number/Fraction
+                                                }}
+                                                // How to display the value depending on if it is a number of a Fraction
+                                            />
+                                        </Grid>
+                                    </Grid>{' '}
+                                </div>
+                            )
+                        })}{' '}
                     <div className={classes.buttonStyle}>
                         {' '}
                         <Button
@@ -194,59 +228,11 @@ export default function Gradebook({ course, setCourse }: Course) {
             </Container>
 
             <div>
-                <Modal
+                <AddItem
+                    addItem={addItem}
                     open={open}
-                    onClose={handleClose}
-                    aria-labelledby="simple-modal-title"
-                    aria-describedby="simple-modal-description"
-                >
-                    <div className={classes.modalStyle}>
-                        <Grid container spacing={2}>
-                            <Grid item xs={12} sm={12}>
-                                <h2 id="simple-modal-title">
-                                    Add a new course item{' '}
-                                </h2>
-                                <TextField
-                                    variant="outlined"
-                                    required
-                                    fullWidth
-                                    id={'nameNewItem'}
-                                    label="Assignment Name"
-                                    name="nametNewItem"
-                                />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <TextField
-                                    variant="outlined"
-                                    required
-                                    fullWidth
-                                    id={'weightNewItem'}
-                                    label="Weight"
-                                    name="weightNewItem"
-                                />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <TextField
-                                    variant="outlined"
-                                    required
-                                    fullWidth
-                                    id={'gradeNewItem'}
-                                    label="Grade"
-                                    name="gradeNewItem"
-                                />
-                            </Grid>
-                        </Grid>
-                        <DialogActions>
-                            <Button
-                                autoFocus
-                                onClick={handleClose}
-                                color="primary"
-                            >
-                                Save changes
-                            </Button>
-                        </DialogActions>
-                    </div>
-                </Modal>
+                    handleClose={handleClose}
+                />
             </div>
         </>
     )

@@ -69,8 +69,6 @@ export const App: React.FC = () => {
 
         setUser(newUser)
     }
-    const [desiredGrade, setDesiredGrade] = useState<string>('')
-    const [course, setCourse] = useState<Course | any>(null)
 
     useEffect(() => {
         loadUser('').then(user => {
@@ -83,17 +81,20 @@ export const App: React.FC = () => {
         })
     }, [])
 
-    useEffect(() => {
-        loadCourse('').then(course => setCourse(course))
-    }, [])
-
     return (
         <div id="app" className={classes.root}>
             <div id="sidebar" className={classes.sidebar}></div>
             <div id="topbar" className={classes.topbar}></div>
             <div id="account" className={classes.account}></div>
             <div id="content" className={classes.content}>
-                <Gradebook course={course} setCourse={setCourse} />
+                {user && (
+                    <Gradebook
+                        course={
+                            user.semesters[currSemester].courses[currCourse]
+                        }
+                        updateCourse={updateCourse}
+                    />
+                )}
             </div>
         </div>
     )
