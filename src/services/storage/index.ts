@@ -55,4 +55,3 @@ export function loadCourse(id: string) {
     id // no-op
     return Promise.resolve(course1)
 }
-

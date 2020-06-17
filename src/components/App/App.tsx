@@ -1,14 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { makeStyles, createStyles, Grid } from '@material-ui/core'
+import { makeStyles, createStyles } from '@material-ui/core'
 import Gradebook from '../Gradebook/Gradebook'
-import {
-    loadUser,
-    User,
-    Fraction,
-    Course,
-    CourseItem,
-    loadCourse,
-} from '../../services/storage'
+import { loadUser, User, Course, loadCourse } from '../../services/storage'
 import { Features } from '../../services/features'
 
 function copyUser(user: User): User {
@@ -53,15 +46,9 @@ const useStyles = makeStyles(() =>
 
         content: {
             gridArea: 'content',
-            backgroundColor: '#E5E5E5'
+            backgroundColor: '#E5E5E5',
         },
     }),
-)
-
-const drawerContent = (
-    <div>
-        <h1>A drawer</h1>
-    </div>
 )
 
 export const App: React.FC = () => {
