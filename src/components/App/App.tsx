@@ -1,8 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import { makeStyles, createStyles, Grid } from '@material-ui/core'
 import ApplicationBar from '../ApplicationBar/ApplicationBar'
-import { loadUser, User } from '../../services/storage'
+import { loadUser, User, Semester, Course } from '../../services/storage'
 import { Features } from '../../services/features'
+
+function copyUser(user: User): User {
+    return {
+        ...user,
+        semesters: user.semesters.map(semester => ({
+            ...semester,
+            courses: semester.courses.map(course => ({
+                ...course,
+                items: course.items.map(item => ({ ...item })),
+            })),
+        })),
+    }
+}
 
 const useStyles = makeStyles(() =>
     createStyles({
@@ -48,10 +61,30 @@ export const App: React.FC = () => {
     const classes = useStyles()
 
     const [user, setUser] = useState<User | null>(null)
+    const [currSemester, setCurrSemester] = useState<number>(0)
     const [selectedFeature, setSelectedFeature] = useState<Features>('calendar')
+    const [currCourse, setCurrCourse] = useState<number>(0)
+
+    const updateCourse = (updatedCourse: Course) => {
+        if (!user) throw new Error('No user found')
+        const newUser = copyUser(user)
+
+        newUser.semesters[currSemester].courses[currCourse] = {
+            ...updatedCourse,
+        }
+
+        setUser(newUser)
+    }
 
     useEffect(() => {
-        loadUser('').then(user => setUser(user))
+        loadUser('').then(user => {
+            setUser(user)
+            setCurrSemester(
+                user.semesters.findIndex(
+                    semester => user.defaultSemester === semester.name,
+                ) || 0,
+            )
+        })
     }, [])
 
     return (

@@ -20,7 +20,7 @@ export interface CourseItem {
 }
 
 export interface Semester {
-    title: string
+    name: string
     courses: Course[]
 }
 

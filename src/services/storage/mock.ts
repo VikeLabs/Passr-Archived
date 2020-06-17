@@ -80,12 +80,12 @@ const course5: Course = {
 }
 
 const semester1: Semester = {
-    title: 'Fall 2019',
+    name: 'Fall 2019',
     courses: [course1, course2, course3],
 }
 
 const semester2: Semester = {
-    title: 'Summer 2020',
+    name: 'Summer 2020',
     courses: [course4, course5],
 }
 
