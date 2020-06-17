@@ -20,7 +20,7 @@ export interface CourseItem {
 }
 
 export interface Semester {
-    title: string
+    name: string
     courses: Course[]
 }
 
@@ -55,4 +55,3 @@ export function loadCourse(id: string) {
     id // no-op
     return Promise.resolve(course1)
 }
-

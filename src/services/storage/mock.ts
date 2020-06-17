@@ -4,10 +4,26 @@ export const course1: Course = {
     name: 'CSC 370',
     desiredGrade: 0.8,
     items: [
-        { name: 'Assignment 1', weight: 0.07, grade:  { numerator: 10, denominator: 10  }},
-        { name: 'Assignment 2', weight: 0.07, grade:  { numerator: 10, denominator: 10  }},
-        { name: 'Assignment 3', weight: 0.07, grade:  { numerator: 8, denominator: 10  } },
-        { name: 'Assignment 4', weight: 0.11,  grade:  { numerator: 9, denominator: 10  } },
+        {
+            name: 'Assignment 1',
+            weight: 0.07,
+            grade: { numerator: 10, denominator: 10 },
+        },
+        {
+            name: 'Assignment 2',
+            weight: 0.07,
+            grade: { numerator: 10, denominator: 10 },
+        },
+        {
+            name: 'Assignment 3',
+            weight: 0.07,
+            grade: { numerator: 8, denominator: 10 },
+        },
+        {
+            name: 'Assignment 4',
+            weight: 0.11,
+            grade: { numerator: 9, denominator: 10 },
+        },
         {
             name: 'Midterm 1',
             weight: 0.22,
@@ -80,12 +96,12 @@ const course5: Course = {
 }
 
 const semester1: Semester = {
-    title: 'Fall 2019',
+    name: 'Fall 2019',
     courses: [course1, course2, course3],
 }
 
 const semester2: Semester = {
-    title: 'Summer 2020',
+    name: 'Summer 2020',
     courses: [course4, course5],
 }
 
