@@ -6,12 +6,13 @@ import {
     Typography,
     Container,
     Button,
-    Icon,
-    Modal,
-    DialogActions,
+  ExpansionPanel,
+  ExpansionPanelSummary,
+  ExpansionPanelDetails,
 } from '@material-ui/core'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline'
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 
 import { Course, CourseItem } from '../../services/storage'
 import { AddItem } from './AddItem'
@@ -48,7 +49,7 @@ const useStyles = makeStyles(theme => ({
         marginTop: theme.spacing(2),
         marginBottom: theme.spacing(2),
         display: 'flex',
-        flexDirection: 'column',
+        alignItems: 'right'
     },
     modalStyle: {
         position: 'absolute',
@@ -60,14 +61,29 @@ const useStyles = makeStyles(theme => ({
         padding: theme.spacing(2, 4, 3),
     },
     buttonStyle: {
-        float: 'right',
-        marginTop: theme.spacing(3),
-        marginBottom: theme.spacing(2),
-        padding: 'theme.spacing(2)',
+      display:'flex',
+      alignSelf: 'flex-end',
+        justifyContent:'flex-end',
+        marginTop: theme.spacing(1),
+        marginBottom: theme.spacing(1),
+        padding: 'theme.spacing(1)',
     },
     button: {
+      alignSelf: 'flex-end',
         margin: theme.spacing(1),
     },
+
+    expander:{
+      marginBottom: theme.spacing(1),
+      marginTop: theme.spacing(1)
+    },
+
+    assignmentSummary: {
+      width:'100px',
+      padding: theme.spacing(1),
+      color: '#0080FF',
+      backgroundColor: '#e5f4fd',
+    }
 }))
 
 interface Props {
@@ -109,6 +125,7 @@ export function Gradebook({ course, updateCourse }: Props) {
 
     return (
         <>
+        {console.log(course, currentGradeTotal)}
             <Container
                 component="main"
                 maxWidth="md"
@@ -153,39 +170,94 @@ export function Gradebook({ course, updateCourse }: Props) {
                             // Think about number validation for this component
                         />
                     </Grid>
-                </Grid>
-                <div className={classes.assignmentContainer}>
+                    </Grid>
+                    <div className={classes.assignmentContainer}>
+                    <div className={classes.buttonStyle}>
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            className={classes.button}
+                            endIcon={<AddCircleOutlineIcon />}
+                            onClick={handleOpen}
+                        >
+                            Add Item
+                        </Button>
+                    </div>
                     {course &&
                         course.items &&
                         course.items.map((item, index) => {
-                            const value = !item.grade
+                            const assignmentGrade = !item.grade
                                 ? ''
                                 : typeof item.grade === 'number'
                                 ? `${item.grade}`
                                 : `${item.grade.numerator}/${item.grade.denominator}`
                             return (
+                             
                                 <div key={item.name}>
+                                   <ExpansionPanel className={classes.expander}>
+                                      <ExpansionPanelSummary
+                              expandIcon={<ExpandMoreIcon />}
+                              aria-controls="panel1a-content"
+                              id="panel1a-header"
+                              
+                            >
+                              <Grid container spacing={2} alignItems='center' justify='center'>
+                                <Grid item sm={6}>
                                     <Typography
                                         component="h6"
                                         variant="h6"
+                                        color='primary'
                                         className={classes.assignments}
                                     >
                                         {item.name}
                                     </Typography>
+                                    </Grid>
+                                    <Grid item sm={2} > 
+                                    <Typography
+                                        component="h6"
+                                        variant="subtitle2"
+                                        className={classes.assignmentSummary}
+                                    >
+                                      Weight: {item.weight}
+                                    </Typography>
+                                    </Grid>
+                                    <Grid item sm={2} > 
+                                    <Typography
+                                        component="h6"
+                                        variant="subtitle2"
+                                        className={classes.assignmentSummary}
+                                        
+                                    >
+                                       Grade: {assignmentGrade}
+                                    </Typography>
+                                    </Grid>
+                                    
+                                    </Grid>
+                                    </ExpansionPanelSummary>
+                                    <ExpansionPanelDetails className={classes.expander}>
                                     <Grid container spacing={2}>
                                         <Grid item xs={12} sm={6}>
                                             <TextField
                                                 variant="outlined"
                                                 required
                                                 fullWidth
+                                                type='number'
                                                 id={'weight' + item.name}
                                                 label="Weight"
                                                 name="weight"
                                                 value={
-                                                    (item.weight * 100).toFixed(
-                                                        2,
-                                                    ) + '%'
-                                                }
+                                                   item.weight
+                                                } 
+                                                onChange={event => {
+                                                  const newCourse = copyCourse(
+                                                      course
+                                                  )
+                                                  newCourse.items[
+                                                      index
+                                                  ].weight = parseFloat(event.target.value)
+                                                  updateCourse(newCourse) // parse the event.target.value into a number/Fraction
+                                              }}
+
                                             />
                                         </Grid>
                                         <Grid item xs={12} sm={6}>
@@ -196,34 +268,27 @@ export function Gradebook({ course, updateCourse }: Props) {
                                                 id={'grade' + item.name}
                                                 label="Grade"
                                                 name="grade"
-                                                value={value}
+                                                value={assignmentGrade}
                                                 onChange={event => {
                                                     const newCourse = copyCourse(
-                                                        course,
+                                                        course
                                                     )
                                                     newCourse.items[
                                                         index
-                                                    ].grade = event.target.value // parse the event.target.value into a number/Fraction
+                                                    ].grade = parseFloat(event.target.value)
+                                                    updateCourse(newCourse) // parse the event.target.value into a number/Fraction
                                                 }}
                                                 // How to display the value depending on if it is a number of a Fraction
                                             />
                                         </Grid>
-                                    </Grid>{' '}
+                                    </Grid>
+                                    </ExpansionPanelDetails>
+                                    </ExpansionPanel>
                                 </div>
+                                 
                             )
-                        })}{' '}
-                    <div className={classes.buttonStyle}>
-                        {' '}
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            className={classes.button}
-                            endIcon={<AddCircleOutlineIcon />}
-                            onClick={handleOpen}
-                        >
-                            Add Item
-                        </Button>
-                    </div>{' '}
+                        })}
+                      
                 </div>
             </Container>
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { makeStyles, createStyles } from '@material-ui/core'
-import Gradebook from '../Gradebook/Gradebook'
+import {Gradebook} from '../Gradebook/Gradebook'
 import { loadUser, User, Course, loadCourse } from '../../services/storage'
 import { Features } from '../../services/features'
 
@@ -47,11 +47,7 @@ const useStyles = makeStyles(() =>
 
         content: {
             gridArea: 'content',
-<<<<<<< HEAD
-            backgroundColor: '#E5E5E5'
-=======
             backgroundColor: '#E5E5E5',
->>>>>>> 875da5c1e86e284ef7b88f61c8f1838a923ac10c
         },
     }),
 )
@@ -62,9 +58,6 @@ export const App: React.FC = () => {
     const [user, setUser] = useState<User | null>(null)
     const [currSemester, setCurrSemester] = useState<number>(0)
     const [selectedFeature, setSelectedFeature] = useState<Features>('calendar')
-<<<<<<< HEAD
-    const [course, setCourse] = useState<Course | any>(null)
-=======
     const [currCourse, setCurrCourse] = useState<number>(0)
 
     const updateCourse = (updatedCourse: Course) => {
@@ -77,7 +70,6 @@ export const App: React.FC = () => {
 
         setUser(newUser)
     }
->>>>>>> 875da5c1e86e284ef7b88f61c8f1838a923ac10c
 
     useEffect(() => {
         loadUser('').then(user => {
@@ -90,19 +82,11 @@ export const App: React.FC = () => {
         })
     }, [])
 
-  useEffect(() => {
-        loadCourse('').then(course => setCourse(course))
-    }, [])
-
-
     return (
         <div id="app" className={classes.root}>
             <div id="sidebar" className={classes.sidebar}></div>
             <div id="topbar" className={classes.topbar}></div>
             <div id="account" className={classes.account}></div>
-<<<<<<< HEAD
-            <div id="content" className={classes.content}><Gradebook course={course}  setCourse={setCourse} /></div>
-=======
             <div id="content" className={classes.content}>
                 {user && (
                     <Gradebook
@@ -113,7 +97,6 @@ export const App: React.FC = () => {
                     />
                 )}
             </div>
->>>>>>> 875da5c1e86e284ef7b88f61c8f1838a923ac10c
         </div>
     )
 }

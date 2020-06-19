@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { makeStyles } from '@material-ui/core/styles'
 import {
     TextField,
     Grid,
@@ -17,8 +18,23 @@ interface Props {
     addItem: (item: CourseItem) => void
 }
 
+const useStyles = makeStyles(theme => ({
+    modalStyle: {
+        position: 'absolute',
+        left: '50%',
+        top: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: '400',
+        backgroundColor: theme.palette.background.paper,
+        padding: theme.spacing(2, 4, 3),
+    },
+}))
+
 export const AddItem = ({ open, handleClose, addItem }: Props) => {
     const [assignName, setAssignName] = useState('')
+    const [assignWeight, setAssignWeight] = useState('')
+    const [assignGrade, setAssignGrade] =useState('')
+    const classes = useStyles()
     return (
         <Modal
             open={open}
@@ -26,8 +42,7 @@ export const AddItem = ({ open, handleClose, addItem }: Props) => {
             aria-labelledby="simple-modal-title"
             aria-describedby="simple-modal-description"
         >
-            <div>
-                {/* <div className={classes.modalStyle}> */}
+                 <div className={classes.modalStyle}> 
                 <Grid container spacing={2}>
                     <Grid item xs={12} sm={12}>
                         <h2 id="simple-modal-title">Add a new course item </h2>
@@ -52,6 +67,10 @@ export const AddItem = ({ open, handleClose, addItem }: Props) => {
                             id={'weightNewItem'}
                             label="Weight"
                             name="weightNewItem"
+                            value={assignWeight}
+                            onChange={event =>
+                                setAssignWeight(event.target.value)
+                            }
                         />
                     </Grid>
                     <Grid item xs={12} sm={6}>
@@ -62,13 +81,17 @@ export const AddItem = ({ open, handleClose, addItem }: Props) => {
                             id={'gradeNewItem'}
                             label="Grade"
                             name="gradeNewItem"
+                            value={assignGrade}
+                            onChange={event =>
+                                setAssignGrade(event.target.value)
+                            }
                         />
                     </Grid>
                 </Grid>
                 <DialogActions>
                     <Button
                         autoFocus
-                        onClick={() => addItem({ name: assignName, weight: 0 })}
+                        onClick={() => addItem({ name: assignName, weight: parseFloat(assignWeight), grade: parseFloat(assignGrade) })}
                         color="primary"
                     >
                         Save changes
