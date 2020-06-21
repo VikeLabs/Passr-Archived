@@ -73,7 +73,7 @@ const course4: Course = {
     name: 'EPHE 155',
     desiredGrade: 0.9,
     items: [
-        { name: 'Assignemnt 1', weight: 0.05, grade:{numerator:9, denominator:10} },
+        { name: 'Assignment 1', weight: 0.05, grade:{numerator:9, denominator:10} },
         { name: 'Assignment 2', weight: 0.1, grade:{numerator:9, denominator:10} },
         { name: 'Assignemnt 3', weight: 0.05, grade:1 },
         { name: 'Assignemnt 4', weight: 0.05, grade: .75 },
