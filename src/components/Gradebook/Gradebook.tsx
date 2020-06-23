@@ -176,7 +176,7 @@ export function Gradebook({ course, updateCourse }: Props) {
                         course.items &&
                         course.items.map((item, index) => (
                                 <div key={item.name}>
-                                    <CourseListItem course={course} item={item} copyCourse={copyCourse} updateCourse={updateCourse} index={index}/>
+                                    <CourseListItem course={course} item={item} copyCourse={copyCourse} updateCourse={updateCourse} index={index} />
                                 </div>  
                             )
                          )}     
