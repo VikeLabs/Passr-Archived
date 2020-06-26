@@ -6,15 +6,15 @@ import {
     Typography,
     Container,
     Button,
-  ExpansionPanel,
-  ExpansionPanelSummary,
-  ExpansionPanelDetails,
+    ExpansionPanel,
+    ExpansionPanelSummary,
+    ExpansionPanelDetails,
 } from '@material-ui/core'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 
-import {CourseListItem} from './CourseListItem'
+import { CourseListItem } from './CourseListItem'
 import { Course, CourseItem } from '../../services/storage'
 import { AddItemModal } from './AddItemModal'
 
@@ -50,7 +50,7 @@ const useStyles = makeStyles(theme => ({
         marginTop: theme.spacing(2),
         marginBottom: theme.spacing(2),
         display: 'flex',
-        alignItems: 'right'
+        alignItems: 'right',
     },
     modalStyle: {
         position: 'absolute',
@@ -62,15 +62,15 @@ const useStyles = makeStyles(theme => ({
         padding: theme.spacing(2, 4, 3),
     },
     buttonStyle: {
-      display:'flex',
-      alignSelf: 'flex-end',
-        justifyContent:'flex-end',
+        display: 'flex',
+        alignSelf: 'flex-end',
+        justifyContent: 'flex-end',
         marginTop: theme.spacing(1),
         marginBottom: theme.spacing(1),
         padding: 'theme.spacing(1)',
     },
     button: {
-      alignSelf: 'flex-end',
+        alignSelf: 'flex-end',
         margin: theme.spacing(1),
     },
 }))
@@ -114,7 +114,6 @@ export function Gradebook({ course, updateCourse }: Props) {
 
     return (
         <>
-        {console.log(course, currentGradeTotal)}
             <Container
                 component="main"
                 maxWidth="md"
@@ -159,8 +158,8 @@ export function Gradebook({ course, updateCourse }: Props) {
                             // Think about number validation for this component
                         />
                     </Grid>
-                    </Grid>
-                    <div className={classes.assignmentContainer}>
+                </Grid>
+                <div className={classes.assignmentContainer}>
                     <div className={classes.buttonStyle}>
                         <Button
                             variant="contained"
@@ -175,11 +174,16 @@ export function Gradebook({ course, updateCourse }: Props) {
                     {course &&
                         course.items &&
                         course.items.map((item, index) => (
-                                <div key={item.name}>
-                                    <CourseListItem course={course} item={item} copyCourse={copyCourse} updateCourse={updateCourse} index={index} />
-                                </div>  
-                            )
-                         )}     
+                            <div key={item.name}>
+                                <CourseListItem
+                                    course={course}
+                                    item={item}
+                                    copyCourse={copyCourse}
+                                    updateCourse={updateCourse}
+                                    index={index}
+                                />
+                            </div>
+                        ))}
                 </div>
             </Container>
 
@@ -188,9 +192,8 @@ export function Gradebook({ course, updateCourse }: Props) {
                     addItem={addItem}
                     open={open}
                     handleClose={handleClose}
-                    setOpen ={setOpen}
+                    setOpen={setOpen}
                 />
-                
             </div>
         </>
     )
