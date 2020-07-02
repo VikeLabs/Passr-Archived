@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { makeStyles } from '@material-ui/core/styles'
+import { fade, makeStyles } from '@material-ui/core/styles'
 import {
     TextField,
     Grid,
@@ -20,10 +20,10 @@ const useStyles = makeStyles(theme => ({
         marginTop: theme.spacing(2),
         marginBottom: theme.spacing(2),
         display: 'flex',
-        alignItems: 'right',
+        alignItems: 'left',
     },
 
-    expander: {
+    expanded: {
         marginBottom: theme.spacing(1),
         marginTop: theme.spacing(1),
     },
@@ -36,10 +36,26 @@ const useStyles = makeStyles(theme => ({
         textAlign: 'center',
         borderRadius: '7%',
     },
+
     deleteButton: {
         marginTop: theme.spacing(2),
         marginBottom: 0,
         marginRight: theme.spacing(1),
+    },
+
+    textFieldStyle: {
+        '& .MuiOutlinedInput-root': {
+            '&:hover fieldset': {
+                boxShadow: `${fade(
+                    theme.palette.primary.main,
+                    0.25,
+                )} 0 0 0 0.2rem`,
+                borderColor: theme.palette.primary.main,
+            },
+            '&.Mui-focused fieldset': {
+                borderColor: theme.palette.primary.dark,
+            },
+        },
     },
 }))
 
@@ -73,8 +89,8 @@ export function CourseListItem({
         const newCourse = copyCourse(course)
         const newGrade = gradeValue.match(fractionRegex)
             ? {
-                  numerator: gradeValue.match(fractionRegex)[1],
-                  denominator: gradeValue.match(fractionRegex)[2],
+                  numerator: Number(gradeValue.match(fractionRegex)[1]),
+                  denominator: Number(gradeValue.match(fractionRegex)[2]),
               }
             : parseFloat(gradeValue)
         newCourse.items[index].grade = newGrade ? newGrade : item.grade
@@ -101,7 +117,7 @@ export function CourseListItem({
 
     return (
         <>
-            <ExpansionPanel className={classes.expander}>
+            <ExpansionPanel className={classes.expanded}>
                 <ExpansionPanelSummary
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="panel1a-content"
@@ -111,7 +127,7 @@ export function CourseListItem({
                         container
                         spacing={2}
                         alignItems="center"
-                        justify="center"
+                        justify="space-around"
                     >
                         <Grid item md={6}>
                             <Typography
@@ -143,10 +159,20 @@ export function CourseListItem({
                         </Grid>
                     </Grid>
                 </ExpansionPanelSummary>
-                <ExpansionPanelDetails className={classes.expander}>
+                <ExpansionPanelDetails>
                     <Grid container spacing={2}>
+                        <Grid item xs={12}>
+                            <Typography
+                                color="primary"
+                                component="h6"
+                                variant="subtitle2"
+                            >
+                                Edit your {item.name} information.
+                            </Typography>
+                        </Grid>
                         <Grid item xs={12} sm={6}>
                             <TextField
+                                className={classes.textFieldStyle}
                                 variant="outlined"
                                 required
                                 fullWidth
@@ -167,6 +193,7 @@ export function CourseListItem({
                         </Grid>
                         <Grid item xs={12} sm={6}>
                             <TextField
+                                className={classes.textFieldStyle}
                                 variant="outlined"
                                 required
                                 fullWidth
