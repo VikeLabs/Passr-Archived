@@ -12,10 +12,10 @@ import {
 import { CourseItem } from '../../services/storage'
 
 interface Props {
-    handleClose: any
+    handleClose: () => void
     open: boolean
     addItem: (item: CourseItem) => void
-    setOpen: any
+    setOpen: (item: boolean) => void
 }
 
 const useStyles = makeStyles(theme => ({
@@ -80,7 +80,9 @@ export const AddItemModal = ({
             weight: parseFloat(assignWeight),
             grade: assignGrade.match(fractionRegex)
                 ? {
+                      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                       numerator: Number(assignGrade.match(fractionRegex)![1]),
+                      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                       denominator: Number(assignGrade.match(fractionRegex)![2]),
                   }
                 : parseFloat(assignGrade),
@@ -88,7 +90,7 @@ export const AddItemModal = ({
         setOpen(false)
     }
 
-    const matchFractionDecimal = (input: any) => {
+    const matchFractionDecimal = (input: string) => {
         return input.match(fractionRegex) || input.match(decimalRegex)
     }
 

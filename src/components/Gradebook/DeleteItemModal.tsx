@@ -1,10 +1,8 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import {
-    Typography,
     Box,
     Button,
-    Modal,
     Dialog,
     DialogTitle,
     DialogContentText,
@@ -34,9 +32,9 @@ const useStyles = makeStyles(theme => ({
 interface Props {
     course: Course
     updateCourse: (course: Course) => void
-    copyCourse: any
+    copyCourse: (course: Course) => Course
     item: CourseItem
-    open: any
+    open: boolean
     handleClose: () => void
 }
 
@@ -50,7 +48,7 @@ export function DeleteItemModal({
 }: Props) {
     const classes = useStyles()
 
-    const handleDeleteItem = (courseName: any) => {
+    const handleDeleteItem = (courseName: string) => {
         const newCourseItems = course.items.filter(
             item => item.name !== courseName,
         )

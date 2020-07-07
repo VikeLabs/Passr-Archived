@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { makeStyles, createStyles } from '@material-ui/core'
-import {Gradebook} from '../Gradebook/Gradebook'
-import { loadUser, User, Course, loadCourse } from '../../services/storage'
-import { Features } from '../../services/features'
+import { Gradebook } from '../Gradebook/Gradebook'
+import { loadUser, User, Course } from '../../services/storage'
 
 function copyUser(user: User): User {
     return {
@@ -23,8 +22,8 @@ const useStyles = makeStyles(() =>
             display: 'grid',
             gridTemplateColumns: '1.5fr 7fr 1fr',
             width: '100vw',
-            height: '180vh',
-            gridTemplateRows: '.5fr 10fr',
+            height: '100vh',
+            gridTemplateRows: '1fr 10fr',
             gridTemplateAreas: `"sidebar topbar account"
                                 "sidebar content content"`,
         },
@@ -37,7 +36,6 @@ const useStyles = makeStyles(() =>
         topbar: {
             gridArea: 'topbar',
             backgroundColor: 'cyan',
-            
         },
 
         account: {
@@ -57,7 +55,6 @@ export const App: React.FC = () => {
 
     const [user, setUser] = useState<User | null>(null)
     const [currSemester, setCurrSemester] = useState<number>(0)
-    const [selectedFeature, setSelectedFeature] = useState<Features>('calendar')
     const [currCourse, setCurrCourse] = useState<number>(0)
 
     const updateCourse = (updatedCourse: Course) => {
@@ -102,4 +99,3 @@ export const App: React.FC = () => {
 }
 
 export default App
-

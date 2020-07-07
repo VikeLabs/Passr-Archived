@@ -62,7 +62,7 @@ const useStyles = makeStyles(theme => ({
 interface Props {
     course: Course
     updateCourse: (course: Course) => void
-    copyCourse: any
+    copyCourse: (course: Course) => Course
     item: CourseItem
     index: number
 }
@@ -85,12 +85,17 @@ export function CourseListItem({
     const fractionRegex = /^([0-9]+)\/([0-9]+)$/
     const decimalRegex = /^[0-1]{0,1}(\.[0-9]+)?$/
 
-    const handleChangeWeightGrade = (weightValue: any, gradeValue: any) => {
+    const handleChangeWeightGrade = (
+        weightValue: string,
+        gradeValue: string,
+    ) => {
         const newCourse = copyCourse(course)
         const newGrade = gradeValue.match(fractionRegex)
             ? {
-                  numerator: Number(gradeValue.match(fractionRegex)[1]),
-                  denominator: Number(gradeValue.match(fractionRegex)[2]),
+                  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                  numerator: Number(gradeValue.match(fractionRegex)![1]),
+                  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                  denominator: Number(gradeValue.match(fractionRegex)![2]),
               }
             : parseFloat(gradeValue)
         newCourse.items[index].grade = newGrade ? newGrade : item.grade
@@ -111,7 +116,7 @@ export function CourseListItem({
     const [weightInput, setWeightInput] = useState('')
     const [gradeInput, setGradeInput] = useState('')
 
-    const matchFractionDecimal = (input: any) => {
+    const matchFractionDecimal = (input: string) => {
         return input.match(fractionRegex) || input.match(decimalRegex)
     }
 
