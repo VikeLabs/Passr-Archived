@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import {
     TextField,
@@ -6,26 +6,15 @@ import {
     Typography,
     Container,
     Button,
-    ExpansionPanel,
-    ExpansionPanelSummary,
-    ExpansionPanelDetails,
+    SvgIcon,
 } from '@material-ui/core'
-import CssBaseline from '@material-ui/core/CssBaseline'
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline'
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 
 import { CourseListItem } from './CourseListItem'
 import { Course, CourseItem } from '../../services/storage'
 import { AddItemModal } from './AddItemModal'
 
-const fractionRegex = /^([0-9]+)\/([0-9]+)$/
-
-function copyCourse(course: Course): Course {
-    return {
-        ...course,
-        items: course.items.map(item => ({ ...item })),
-    }
-}
+import { copyCourse } from './index'
 
 const useStyles = makeStyles(theme => ({
     container: {
@@ -82,19 +71,23 @@ interface Props {
 
 export function Gradebook({ course, updateCourse }: Props) {
     const classes = useStyles()
-    const currentGradeList =
-        course &&
-        course.items &&
-        course.items.map(item =>
-            typeof item.grade === 'number'
-                ? item.weight * item.grade
-                : item.grade
-                ? (item.weight * item.grade.numerator) / item.grade.denominator
-                : 0,
-        )
+
+    function getCurrentGrade(courseItems: CourseItem[]) {
+        const currentGrade = courseItems
+            .map(item =>
+                typeof item.grade === 'number'
+                    ? item.weight * item.grade
+                    : item.grade
+                    ? (item.weight * item.grade.numerator) /
+                      item.grade.denominator
+                    : 0,
+            )
+            .reduce((grade1: number, grade2: number) => grade1 + grade2)
+        return currentGrade
+    }
+
     const currentGradeTotal =
-        currentGradeList &&
-        currentGradeList.reduce((grade1: any, grade2: any) => grade1 + grade2)
+        course && course.items && getCurrentGrade(course.items)
 
     const [open, setOpen] = React.useState(false)
 
@@ -114,87 +107,100 @@ export function Gradebook({ course, updateCourse }: Props) {
 
     return (
         <>
-            <Container
-                component="main"
-                maxWidth="md"
-                className={classes.container}
-            >
-                <Typography
-                    component="h5"
-                    variant="h5"
-                    className={classes.assignments}
-                >
-                    {course && course.name}
-                </Typography>
-                <Grid container spacing={2}>
-                    <Grid item xs={12} sm={6}>
-                        <TextField
-                            variant="outlined"
-                            required
-                            fullWidth
-                            disabled
-                            id="currentGrade"
-                            label="Current Grade"
-                            name="currentGrade"
-                            value={currentGradeTotal || ''}
-                        />
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                        <TextField
-                            variant="outlined"
-                            required
-                            fullWidth
-                            id="desiredGrade"
-                            label="Desired Grade"
-                            name="desiredGrade"
-                            value={(course && course.desiredGrade) || ''}
-                            onChange={event =>
-                                updateCourse({
-                                    ...course,
-                                    desiredGrade:
-                                        Number(event.target.value) || 0,
-                                })
-                            }
-                            // Think about number validation for this component
-                        />
-                    </Grid>
-                </Grid>
-                <div className={classes.assignmentContainer}>
-                    <div className={classes.buttonStyle}>
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            className={classes.button}
-                            endIcon={<AddCircleOutlineIcon />}
-                            onClick={handleOpen}
+            {course ? (
+                <>
+                    <Container
+                        component="main"
+                        maxWidth="md"
+                        className={classes.container}
+                    >
+                        <Typography
+                            component="h5"
+                            variant="h5"
+                            className={classes.assignments}
                         >
-                            Add Item
-                        </Button>
-                    </div>
-                    {course &&
-                        course.items &&
-                        course.items.map((item, index) => (
-                            <div key={item.name}>
-                                <CourseListItem
-                                    course={course}
-                                    item={item}
-                                    copyCourse={copyCourse}
-                                    updateCourse={updateCourse}
-                                    index={index}
+                            {course && course.name}
+                        </Typography>
+                        <Grid container spacing={2}>
+                            <Grid item xs={12} sm={6}>
+                                <TextField
+                                    variant="outlined"
+                                    required
+                                    fullWidth
+                                    disabled
+                                    id="currentGrade"
+                                    label="Current Grade"
+                                    name="currentGrade"
+                                    value={currentGradeTotal || ''}
                                 />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <TextField
+                                    variant="outlined"
+                                    required
+                                    fullWidth
+                                    id="desiredGrade"
+                                    label="Desired Grade"
+                                    name="desiredGrade"
+                                    value={
+                                        (course && course.desiredGrade) || ''
+                                    }
+                                    onChange={event =>
+                                        updateCourse({
+                                            ...course,
+                                            desiredGrade:
+                                                Number(event.target.value) || 0,
+                                        })
+                                    }
+                                    // Think about number validation for this component
+                                />
+                            </Grid>
+                        </Grid>
+                        <div className={classes.assignmentContainer}>
+                            <div className={classes.buttonStyle}>
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    className={classes.button}
+                                    endIcon={<AddCircleOutlineIcon />}
+                                    onClick={handleOpen}
+                                >
+                                    Add Item
+                                </Button>
                             </div>
-                        ))}
-                </div>
-            </Container>
-
-            <div>
-                <AddItemModal
-                    addItem={addItem}
-                    open={open}
-                    handleClose={handleClose}
-                    setOpen={setOpen}
-                />
-            </div>
+                            {course &&
+                                course.items &&
+                                course.items.map((item, index) => (
+                                    <div key={item.name}>
+                                        <CourseListItem
+                                            course={course}
+                                            item={item}
+                                            copyCourse={copyCourse}
+                                            updateCourse={updateCourse}
+                                            index={index}
+                                        />
+                                    </div>
+                                ))}
+                        </div>
+                    </Container>
+                    <div>
+                        <AddItemModal
+                            addItem={addItem}
+                            open={open}
+                            handleClose={handleClose}
+                            setOpen={setOpen}
+                        />
+                    </div>{' '}
+                </>
+            ) : (
+                <Container
+                    component="main"
+                    maxWidth="md"
+                    className={classes.container}
+                >
+                    You have no courses listed.
+                </Container>
+            )}
         </>
     )
 }

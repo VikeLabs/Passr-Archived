@@ -77,7 +77,7 @@ export const AddItemModal = ({
     const handleAddItem = () => {
         addItem({
             name: assignName,
-            weight: parseFloat(assignWeight),
+            weight: Number(assignWeight),
             grade: assignGrade.match(fractionRegex)
                 ? {
                       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -85,7 +85,7 @@ export const AddItemModal = ({
                       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                       denominator: Number(assignGrade.match(fractionRegex)![2]),
                   }
-                : parseFloat(assignGrade),
+                : Number(assignGrade),
         })
         setOpen(false)
     }
@@ -98,8 +98,8 @@ export const AddItemModal = ({
         <Modal
             open={open}
             onClose={handleClose}
-            aria-labelledby="simple-modal-title"
-            aria-describedby="simple-modal-description"
+            aria-labelledby="Add a syllabus item"
+            aria-describedby="Add a syllabus item to your course to track your grad"
         >
             <div className={classes.modalStyle}>
                 <Grid container spacing={2}>
@@ -108,7 +108,7 @@ export const AddItemModal = ({
                             component="h5"
                             variant="subtitle2"
                             className={classes.subtitle}
-                            id="simple-modal-title"
+                            id={`enter-course-${assignName}`}
                         >
                             Enter your course information
                         </Typography>
@@ -117,7 +117,7 @@ export const AddItemModal = ({
                             variant="h5"
                             color="primary"
                             className={classes.title}
-                            id="simple-modal-title"
+                            id={`add-new-item-${assignName}`}
                         >
                             <Box fontWeight="fontWeightBold">
                                 Add a new item
@@ -128,7 +128,7 @@ export const AddItemModal = ({
                             variant="outlined"
                             required
                             fullWidth
-                            id={'nameNewItem'}
+                            id={assignName}
                             label="Assignment Name"
                             name="nametNewItem"
                             value={assignName}
@@ -143,7 +143,7 @@ export const AddItemModal = ({
                             variant="outlined"
                             required
                             fullWidth
-                            id={'weightNewItem'}
+                            id={`${assignName}-weight`}
                             label="Weight"
                             name="weightNewItem"
                             value={assignWeight}
@@ -164,7 +164,7 @@ export const AddItemModal = ({
                             variant="outlined"
                             required
                             fullWidth
-                            id={'gradeNewItem'}
+                            id={`${assignName}-grade`}
                             label="Grade"
                             name="gradeNewItem"
                             value={assignGrade}

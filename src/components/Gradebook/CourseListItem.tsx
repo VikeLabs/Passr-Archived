@@ -97,10 +97,10 @@ export function CourseListItem({
                   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                   denominator: Number(gradeValue.match(fractionRegex)![2]),
               }
-            : parseFloat(gradeValue)
+            : Number(gradeValue)
         newCourse.items[index].grade = newGrade ? newGrade : item.grade
         newCourse.items[index].weight = weightValue
-            ? parseFloat(weightValue)
+            ? Number(weightValue)
             : item.weight
         updateCourse(newCourse)
     }
