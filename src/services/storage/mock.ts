@@ -1,13 +1,29 @@
 import { Course, User, Semester } from './index'
 
-const course1: Course = {
+export const course1: Course = {
     name: 'CSC 370',
     desiredGrade: 0.8,
     items: [
-        { name: 'Assignment 1', weight: 0.07, grade: 1 },
-        { name: 'Assignment 2', weight: 0.07, grade: 1 },
-        { name: 'Assignment 3', weight: 0.07 },
-        { name: 'Assignment 4', weight: 0.11 },
+        {
+            name: 'Assignment 1',
+            weight: 0.07,
+            grade: { numerator: 10, denominator: 10 },
+        },
+        {
+            name: 'Assignment 2',
+            weight: 0.07,
+            grade: { numerator: 10, denominator: 10 },
+        },
+        {
+            name: 'Assignment 3',
+            weight: 0.07,
+            grade: { numerator: 8, denominator: 10 },
+        },
+        {
+            name: 'Assignment 4',
+            weight: 0.11,
+            grade: { numerator: 9, denominator: 10 },
+        },
         {
             name: 'Midterm 1',
             weight: 0.22,
@@ -22,7 +38,7 @@ const course1: Course = {
     ],
 }
 
-const course2: Course = {
+export const course2: Course = {
     name: 'ECE 355',
     desiredGrade: 0.75,
     items: [
@@ -57,10 +73,18 @@ const course4: Course = {
     name: 'EPHE 155',
     desiredGrade: 0.9,
     items: [
-        { name: 'Assignemnt 1', weight: 0.05 },
-        { name: 'Assignment 2', weight: 0.1 },
-        { name: 'Assignemnt 3', weight: 0.05 },
-        { name: 'Assignemnt 4', weight: 0.05 },
+        {
+            name: 'Assignment 1',
+            weight: 0.05,
+            grade: { numerator: 9, denominator: 10 },
+        },
+        {
+            name: 'Assignment 2',
+            weight: 0.1,
+            grade: { numerator: 9, denominator: 10 },
+        },
+        { name: 'Assignemnt 3', weight: 0.05, grade: 1 },
+        { name: 'Assignemnt 4', weight: 0.05, grade: 0.75 },
         { name: 'Assignment 5', weight: 0.1 },
         { name: 'Midterm', weight: 0.25 },
         { name: 'Final', weight: 0.4 },

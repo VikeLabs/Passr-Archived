@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { makeStyles, createStyles, Grid } from '@material-ui/core'
-import ApplicationBar from '../ApplicationBar/ApplicationBar'
-import { loadUser, User, Semester, Course } from '../../services/storage'
-import { Features } from '../../services/features'
+import { makeStyles, createStyles } from '@material-ui/core'
+import { Gradebook } from '../Gradebook/Gradebook'
+import { loadUser, User, Course } from '../../services/storage'
 
 function copyUser(user: User): User {
     return {
@@ -31,7 +30,7 @@ const useStyles = makeStyles(() =>
 
         sidebar: {
             gridArea: 'sidebar',
-            backgroundColor: 'pink',
+            backgroundColor: '#ffdde2',
         },
 
         topbar: {
@@ -46,15 +45,9 @@ const useStyles = makeStyles(() =>
 
         content: {
             gridArea: 'content',
-            backgroundColor: 'yellow',
+            backgroundColor: '#E5E5E5',
         },
     }),
-)
-
-const drawerContent = (
-    <div>
-        <h1>A drawer</h1>
-    </div>
 )
 
 export const App: React.FC = () => {
@@ -62,7 +55,6 @@ export const App: React.FC = () => {
 
     const [user, setUser] = useState<User | null>(null)
     const [currSemester, setCurrSemester] = useState<number>(0)
-    const [selectedFeature, setSelectedFeature] = useState<Features>('calendar')
     const [currCourse, setCurrCourse] = useState<number>(0)
 
     const updateCourse = (updatedCourse: Course) => {
@@ -92,7 +84,16 @@ export const App: React.FC = () => {
             <div id="sidebar" className={classes.sidebar}></div>
             <div id="topbar" className={classes.topbar}></div>
             <div id="account" className={classes.account}></div>
-            <div id="content" className={classes.content}></div>
+            <div id="content" className={classes.content}>
+                {user && (
+                    <Gradebook
+                        course={
+                            user.semesters[currSemester].courses[currCourse]
+                        }
+                        updateCourse={updateCourse}
+                    />
+                )}
+            </div>
         </div>
     )
 }
